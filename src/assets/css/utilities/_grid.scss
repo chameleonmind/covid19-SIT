@@ -1,0 +1,29 @@
+@import "../themes/index";
+.row {
+  display: flex;
+  flex-wrap: wrap;
+
+  .col {
+    padding-left: 0.75rem;
+    padding-right: 0.75rem;
+    flex: 1 1 auto;
+
+    &.col-no-grow {
+      @media screen and (map_get($breakpoints, 'md')) {
+        flex-grow: 0;
+      }
+    }
+
+    &.col-md-2 {
+      @media screen and (map_get($breakpoints, 'md')) {
+        flex-basis: 50%;
+      }
+    }
+
+    &.col-md-3 {
+      @media screen and (map_get($breakpoints, 'md')) {
+        flex-basis: 33.33334%;
+      }
+    }
+  }
+}

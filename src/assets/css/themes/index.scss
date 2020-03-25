@@ -1,0 +1,79 @@
+@import './theme-default';
+
+// defined as scss variables for easier use
+$primary: var(--primary);
+$primary-action: var(--primary-action);
+$secondary: var(--secondary);
+$secondary-action: var(--secondary-action);
+$plain: var(--plain);
+$plain-action: var(--plain-action);
+$base: var(--base);
+$base-alt: var(--base-alt);
+$work-area: var(--work-area);
+$menu-background: var(--menu-background);
+$menu-selected: var(--menu-selected);
+$menu-selector: var(--menu-selector);
+$menu-selected-alt: var(--menu-selected-alt);
+$menu-text: var(--menu-text);
+$menu-selected-text: var(--menu-selected-text);
+$menu-item-radius: var(--menu-item-radius);
+$menu-padding: var(--menu-padding);
+$text: var(--text);
+$text-alt: var(--text-alt);
+$text-alt2: var(--text-alt2);
+$text-button: var(--text-button);
+$border: var(--border);
+$border-alt: var(--border-alt);
+$danger: var(--danger);
+$warning: var(--warning);
+$success: var(--success);
+$neutral: #ccc;
+$scroll-track: var(--scroll-track);
+$scroll-bar: var(--scroll-bar);
+$table-color: var(--table-color);
+$table-color-alt: var(--table-color-alt);
+$subheader: var(--subheader);
+$shadow: var(--shadow);
+$sidebar-shadow: var(--sidebar-shadow);
+$input-shadow: var(--input-shadow);
+$shadow-sm: var(--shadow-sm);
+$shadow-lg: var(--shadow-lg);
+$shadow-strong: var(--shadow-strong);
+$input-border: var(--input-border);
+$input-border-active: var(--input-border-active);
+$input-bg: var(--input-background);
+$input-radius: var(--input-radius);
+$default-radius: var(--default-radius);
+$shadow-sm: var(--shadow-sm);
+
+// Breakpoints
+$grid-values: (
+  // Small Devices -- above 480px
+        exsm: 480px,
+  // Small Devices -- above 768px
+        sm: 768px,
+  // Medium Devices -- 1024px
+        md: 1024px,
+  // Laptop standard 1280px
+        laptop: 1280px,
+  // Laptop -- 1366px
+        lg: 1366px,
+  // Desktop -- 1600px
+        xl: 1600px,
+  // Extra Large Screen -- 1600px
+        xxl: 1920px
+);
+
+$breakpoints: (
+  // Small Devices -- above 768px
+        sm: 'min-width: #{map-get($grid-values, sm)}',
+  // Medium Devices -- 1024px
+        md: 'min-width: #{map-get($grid-values, md)}',
+  // Laptop -- 1366px
+        lg: 'min-width: #{map-get($grid-values, lg)}',
+  // Desktop -- 1600px
+        xl: 'min-width: #{map-get($grid-values, xl)}',
+  // Extra Large Screen -- 1920px
+        xxl: 'min-width: #{map-get($grid-values, xxl)}'
+);
+

@@ -1,0 +1,308 @@
+@import './utilities/_normalize.css';
+@import './utilities/typography';
+@import './utilities/feather-icons';
+@import './utilities/spacing';
+@import './utilities/helpers';
+@import './utilities/grid';
+@import './themes/index';
+
+body, html {
+  font-family: 'Metropolis', Roboto, Arial, sans-serif;
+  font-size: 15px;
+  line-height: 1.15;
+  font-weight: normal;
+  font-style: normal;
+  overflow: hidden;
+  background: $base-alt;
+  -webkit-text-size-adjust: 100%;
+  -ms-text-size-adjust: 100%;
+  -ms-overflow-style: scrollbar;
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+}
+
+.app-header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  width: 100%;
+  z-index: 998;
+}
+
+.app-sidebar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100%;
+  z-index: 999;
+}
+
+.app-main {
+  padding-top: 3rem;
+  min-height: 100vh;
+  background: $work-area;
+  transition: padding-left 0.3s ease;
+
+  @media screen and (map_get($breakpoints, 'md')) {
+    padding-left: 180px;
+
+    &.toggled {
+      padding-left: 80px;
+    }
+  }
+
+  @media screen and (map_get($breakpoints, 'lg')) {
+    padding-left: 220px;
+  }
+}
+
+a, a:visited {
+  color: $primary;
+  border-bottom: 1px solid transparent;
+  text-decoration: none;
+  word-break: break-all;
+  transition: color 0.2s, border-color 0.2s;
+
+  &[target='_blank'] {
+    &::after {
+      content: '\e95c';
+      font-family: 'Feather';
+      margin-left: 0.25rem;
+      vertical-align: middle;
+      color: $secondary;
+    }
+  }
+
+  &:hover {
+    color: $primary-action;
+    border-bottom: 1px solid $border-alt;
+  }
+}
+
+.custom-scrollbar::-webkit-scrollbar {
+  width: 0.3rem;
+  height: 0.3rem;
+}
+
+.custom-scrollbar:hover::-webkit-scrollbar {
+  width: 0.3rem;
+  height: 0.3rem;
+}
+
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: $scroll-track;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background: $scroll-bar;
+}
+
+.fade-enter-active, .fade-leave-active {
+  transition: opacity .3s;
+}
+
+.fade-enter, .fade-leave-to {
+  opacity: 0;
+}
+
+.tooltip {
+  display: block !important;
+  z-index: 10000;
+
+  .tooltip-inner {
+    background: #242832;
+    color: #fff;
+    border-radius: 0.25rem;
+    padding: 12px;
+    font-size: 12px;
+    line-height: 1;
+    margin: 0;
+    box-shadow: 0 0 1.5rem rgba(36, 40, 50, 0.15);
+  }
+
+  .tooltip-arrow {
+    width: 0;
+    height: 0;
+    border-style: solid;
+    position: absolute;
+    margin: 5px;
+    border-color: #242832;
+    z-index: 1;
+  }
+
+  &[x-placement^="top"] {
+    margin-bottom: 5px;
+
+    .tooltip-arrow {
+      border-width: 5px 5px 0 5px;
+      border-left-color: transparent !important;
+      border-right-color: transparent !important;
+      border-bottom-color: transparent !important;
+      bottom: -5px;
+      left: calc(50% - 15px);
+      margin-top: 0;
+      margin-bottom: 0;
+    }
+  }
+
+  &[x-placement^="bottom"] {
+    margin-top: 5px;
+
+    .tooltip-arrow {
+      border-width: 0 5px 5px 5px;
+      border-left-color: transparent !important;
+      border-right-color: transparent !important;
+      border-top-color: transparent !important;
+      top: -5px;
+      left: calc(50% - 5px);
+      margin-top: 0;
+      margin-bottom: 0;
+    }
+  }
+
+  &[x-placement^="right"] {
+    margin-left: 5px;
+
+    .tooltip-arrow {
+      border-width: 5px 5px 5px 0;
+      border-left-color: transparent !important;
+      border-top-color: transparent !important;
+      border-bottom-color: transparent !important;
+      left: -5px;
+      top: calc(50% - 5px);
+      margin-left: 0;
+      margin-right: 0;
+    }
+  }
+
+  &[x-placement^="left"] {
+    margin-right: 5px;
+
+    .tooltip-arrow {
+      border-width: 5px 0 5px 5px;
+      border-top-color: transparent !important;
+      border-right-color: transparent !important;
+      border-bottom-color: transparent !important;
+      right: -5px;
+      top: calc(50% - 5px);
+      margin-left: 0;
+      margin-right: 0;
+    }
+  }
+
+  &[aria-hidden='true'] {
+    visibility: hidden;
+    opacity: 0;
+    transition: opacity .2s, visibility .2s;
+  }
+
+  &[aria-hidden='false'] {
+    visibility: visible;
+    opacity: 1;
+    transition: opacity .15s;
+  }
+}
+
+.custom-datepicker {
+  position: relative;
+
+  input {
+    /*display: block;
+    width: 100%;
+    border-radius: $default-radius;
+    border: $input-border;
+    background: $input-bg;
+    color: $text;
+    padding: 0.75rem;
+    outline: none;
+    transition: border-color .2s, box-shadow .2s;
+
+    &:disabled {
+      opacity: 0.75;
+      cursor: not-allowed;
+    }*/
+    display: block;
+    width: 100%;
+    border-radius: $input-radius;
+    border: none;
+    background: $input-bg;
+    color: $text;
+    padding: 1.5rem 0.5rem 0.5rem;
+    outline: none;
+    resize: none;
+    transition: border-color .2s, box-shadow .2s;
+
+    &:focus {
+      box-shadow: $input-shadow;
+      background: $input-bg;
+      outline: none;
+    }
+  }
+
+  .datepicker-header {
+    background: $primary;
+    text-align: center;
+    padding: 1rem;
+    color: $text-button;
+  }
+
+  .vdp-datepicker__calendar .cell.selected {
+    background: $primary;
+    color: $text-button;
+
+    &:hover {
+      background: $primary-action;
+    }
+  }
+
+  .vdp-datepicker__calendar .cell:not(.blank):not(.disabled).day:hover {
+    border: 1px solid $primary-action;
+  }
+
+  .vdp-datepicker__clear-button {
+    position: absolute;
+    right: 0.5rem;
+    top: calc(50% - 0.5rem);
+    background-color: $neutral;
+    color: $text;
+    padding: 0 0.25rem;
+    border-radius: 10px;
+
+    i {
+      font-style: normal;
+    }
+  }
+
+  ~ label {
+    z-index: 1;
+    position: absolute;
+    font-weight: normal;
+    transform: translateY(-2rem) translateX(2px);
+    padding-left: 0.5rem;
+    padding-right: 10%;
+    pointer-events: none;
+    opacity: 0.5;
+    transition: transform .2s, font-size 0.2s;
+
+    &.required:after {
+      content: '*';
+      font-size: 1.1em;
+      color: $danger;
+    }
+  }
+
+  &.active input {
+    background: $input-bg;
+    box-shadow: $input-shadow;
+  }
+
+  &.active ~ label {
+    background: transparent;
+    font-weight: normal;
+    font-size: 0.75rem;
+    color: $text-alt2;
+    opacity: 1;
+    padding-top: 0.25rem;
+    transform: translateY(-3rem) translateX(2px);
+  }
+}

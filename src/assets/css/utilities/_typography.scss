@@ -1,0 +1,87 @@
+@font-face {
+  font-family: 'Metropolis';
+  src: url('../fonts/Metropolis-Bold.woff2') format('woff2'),
+  url('../fonts/Metropolis-Bold.woff') format('woff'),
+  url('../fonts/Metropolis-Bold.ttf') format('truetype');
+  font-weight: bold;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Metropolis';
+  src: url('../fonts/Metropolis-Regular.woff2') format('woff2'),
+  url('../fonts/Metropolis-Regular.woff') format('woff'),
+  url('../fonts/Metropolis-Regular.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Metropolis';
+  src: url('../fonts/Metropolis-BoldItalic.woff2') format('woff2'),
+  url('../fonts/Metropolis-BoldItalic.woff') format('woff'),
+  url('../fonts/Metropolis-BoldItalic.ttf') format('truetype');
+  font-weight: bold;
+  font-style: italic;
+}
+
+@font-face {
+  font-family: 'Metropolis';
+  src: url('../fonts/Metropolis-RegularItalic.woff2') format('woff2'),
+  url('../fonts/Metropolis-RegularItalic.woff') format('woff'),
+  url('../fonts/Metropolis-RegularItalic.ttf') format('truetype');
+  font-weight: normal;
+  font-style: italic;
+}
+
+.font-bold {
+  font-weight: bold !important;
+}
+
+.font-normal {
+  font-weight: normal !important;
+}
+
+.font-italic {
+  font-style: italic !important;
+}
+
+.font-s-sm {
+  font-size: 0.85rem;
+}
+
+.font-s-normal {
+  font-size: 1rem;
+}
+
+.font-s-md {
+  font-size: 1.2rem;
+}
+
+.font-s-lg {
+  font-size: 1.5rem;
+}
+
+.font-s-xl {
+  font-size: 2rem;
+}
+
+.font-s-xxl {
+  font-size: 3rem;
+}
+
+.font-s-xxxl {
+  font-size: 4rem;
+}
+
+.capitalize {
+  text-transform: capitalize;
+}
+
+.uppercase {
+  text-transform: uppercase;
+}
+
+.no-break {
+  white-space: nowrap;
+}
