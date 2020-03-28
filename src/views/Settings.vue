@@ -15,7 +15,7 @@
         </basic-button>
       </expandable>
     </template>
-    <h3 class="p-3 m-0 text-center">Nema dostupnih podešavanja.</h3>
+    <h3 v-else class="p-3 m-0 text-center">Nema dostupnih podešavanja.</h3>
   </div>
 </template>
 
