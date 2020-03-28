@@ -7,6 +7,7 @@ import { VTooltip } from 'v-tooltip'
 import i18n from '@/plugins/i18n'
 import NotificationPlugin from './plugins/notification'
 import MessagePlugin from './plugins/message'
+import Meta from 'vue-meta'
 
 require('./assets/css/main.scss')
 
@@ -14,6 +15,8 @@ Vue.directive('tooltip', VTooltip)
 
 Vue.use(NotificationPlugin)
 Vue.use(MessagePlugin)
+
+Vue.use(Meta)
 
 Vue.config.productionTip = false
 
