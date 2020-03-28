@@ -307,7 +307,7 @@ export default {
 
     .app-name {
       color: $primary;
-      font-size: 1.2rem;
+      font-size: 1rem;
       white-space: nowrap;
       margin: 0;
       opacity: 0;

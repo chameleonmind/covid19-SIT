@@ -11,7 +11,8 @@
                 <div class="progress-info">
                   <p>Početak: <span>{{localData.startDate | formatDate}}</span></p>
                   <p>Kraj: <span>{{localData.endDate | formatDate}}</span></p>
-                  <p>Proteklo: <span>{{daysDifference - diffToToday > 0 ? startDayDiffToToday : endDayDiffToToday}}</span>
+                  <p>Proteklo:
+                    <span>{{daysDifference - diffToToday > 0 ? startDayDiffToToday : endDayDiffToToday}}</span>
                   </p>
                 </div>
               </div>
@@ -33,7 +34,7 @@
           <div class="graph-data">
             <basic-card card-title="Statistika" card-icon="icon-trending-up" :loading="chartLoading"
                         :loader-height="chartHeight+100+'px'">
-              <div class="row justify-space-between align-items-center">
+              <div class="row justify-space-between">
                 <div>
                   <basic-button :color="chartType === 'line' ? 'secondary' : 'outline'"
                                 size="xsm"
@@ -70,7 +71,9 @@
       </div>
       <div class="row" v-else>
         <div class="col col-md-2 col-no-grow ml-auto mr-auto mt-3">
-          <add-isolation-info @save-data="saveData"/>
+          <basic-card card-title="Podešavanja" card-icon="icon-user">
+            <add-isolation-info @save-data="saveData"/>
+          </basic-card>
         </div>
       </div>
     </transition>
@@ -98,7 +101,7 @@ export default {
   data () {
     return {
       localData: null,
-      chartHeight: 80,
+      chartHeight: 100,
       chartType: 'line',
       personalInfoLoading: true,
       chartLoading: true,
@@ -153,9 +156,10 @@ export default {
       if (!value) return ''
       return format(parseISO(value), 'dd.MM.yyyy.')
     },
-    nameFilter (value) {
-      if (!value) return ''
-      if (value.endsWith('za') || value.endsWith('ža') || value.endsWith('ra')) {
+    nameFilter (name) {
+      if (!name) return ''
+      const value = name.split(' ')[0]
+      if (value.endsWith('za') || value.endsWith('ža') || value.endsWith('ira')) {
         return value.slice(0, -1) + 'o'
       } else if (value.endsWith('ca')) {
         return value.slice(0, -1) + 'e'
