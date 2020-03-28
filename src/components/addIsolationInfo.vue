@@ -1,6 +1,6 @@
 <template>
   <div>
-    <basic-card card-title="Podešavanja">
+    <basic-card card-title="Podešavanja" card-icon="icon-user">
       <div class="row">
         <div class="col col-md-2">
           <basic-input id="name"
@@ -40,6 +40,13 @@
             </datepicker>
             <label class="floating">Kraj izolacije</label>
           </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col">
+          <p class="info">
+            Podaci koje ovde unosite se čuvaju samo na ovom uređaju i ne šalju se ni na jedan servis.
+          </p>
         </div>
       </div>
       <div class="mt-3 text-center">
@@ -118,5 +125,17 @@ export default {
     background: $danger;
     color: $text-button;
     text-align: center;
+  }
+
+  .info {
+    color: $text-alt2;
+    text-align: center;
+    font-size: 0.85rem;
+    padding: 1rem 0 0.5rem;
+    margin: 0;
+
+    @media screen and (map_get($breakpoints, 'md')) {
+      padding: 1rem 20% 0.5rem;
+    }
   }
 </style>

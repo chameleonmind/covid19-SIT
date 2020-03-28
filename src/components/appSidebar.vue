@@ -1,7 +1,8 @@
 <template>
   <div class="comp-sidebar" :class="{'toggled': isSidebarToggled}">
-    <div class="logo-placeholder">
-      SIT
+    <div class="logo">
+      <img src="../assets/logo.png" alt="SIT">
+      <h1 class="app-name" :class="{'visible' : !isSidebarToggled || isMobile}">Covid-19 SIT</h1>
     </div>
     <nav class="sidebar-nav">
       <router-link id="menu-home"
@@ -63,7 +64,7 @@ export default {
   watch: {
     $route: {
       handler () {
-        if (this.isMobile) {
+        if (this.isMobile && this.isSidebarToggled) {
           const tempTimeout = setTimeout(() => {
             this.toggleSidebar()
             clearTimeout(tempTimeout)
@@ -291,17 +292,33 @@ export default {
     margin: auto;
   }
 
-  .logo-placeholder {
-    background: $menu-selected;
-    max-width: 90%;
-    margin: 1rem auto;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 1rem 2rem;
-    color: $text;
-    font-size: 1.5rem;
-    font-weight: bold;
-    border-radius: $default-radius;
+  .logo {
+    max-width: 100%;
+    padding: 0 0.5rem 0.5rem;
+    margin-bottom: 0.5rem;
+    text-align: center;
+    border-bottom: 1px solid $border-alt;
+
+    img {
+      display: inline-block;
+      width: 4rem;
+      max-width: 100%;
+    }
+
+    .app-name {
+      color: $primary;
+      font-size: 1.2rem;
+      white-space: nowrap;
+      margin: 0;
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.2s, visibility 0.2s;
+
+      &.visible {
+        opacity: 1;
+        visibility: visible;
+        transition: opacity 0.3s 0.3s, visibility 0.3s 0.3s;
+      }
+    }
   }
 </style>

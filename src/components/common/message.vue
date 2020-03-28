@@ -12,13 +12,13 @@
           <basic-button :color="type === 'confirmation' ? 'text' : 'primary'"
                         class="mr-3"
                         modifier="stop" @click="hideConfirmation">
-            {{type === 'confirmation' ? 'Cancel' : 'OK'}}
+            {{type === 'confirmation' ? cancelText : okText}}
           </basic-button>
           <basic-button color="primary"
                         modifier="stop"
                         v-if="type === 'confirmation'"
                         @click="confirmAction">
-            Confirm
+            {{okText}}
           </basic-button>
         </div>
       </div>
@@ -38,6 +38,8 @@ export default {
       text: '',
       heading: '',
       type: 'confirmation',
+      okText: '',
+      cancelText: '',
       onConfirm: {},
       onCancel: {}
     }
@@ -66,6 +68,8 @@ export default {
       this.heading = params.heading || ''
       this.type = params.type || 'message'
       this.onConfirm = params.onConfirm
+      this.okText = params.okText || 'OK'
+      this.cancelText = params.cancelText || 'Cancel'
       // this.onCancel = params.onCancel || this.hideConfirmation()
     }
   },

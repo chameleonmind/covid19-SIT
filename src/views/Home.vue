@@ -4,14 +4,15 @@
       <div v-if="localData && Object.keys(localData).length && !personalInfoLoading">
         <section class="row">
           <div class="personal-data">
-            <basic-card :card-title="`Zdravo ${$options.filters.nameFilter(localData.name)}`" card-icon="icon-user"
+            <basic-card :card-title="`Zdravo ${$options.filters.nameFilter(localData.name)}!`" card-icon="icon-user"
                         :loading="personalInfoLoading">
               <div class="days-progress">
                 <days-progress :days-passed="diffToToday" :max-days="daysDifference"/>
                 <div class="progress-info">
                   <p>Početak: <span>{{localData.startDate | formatDate}}</span></p>
                   <p>Kraj: <span>{{localData.endDate | formatDate}}</span></p>
-                  <p>Vreme: <span>{{daysDifference - diffToToday > 0 ? startDayDiffToToday : endDayDiffToToday}}</span></p>
+                  <p>Proteklo: <span>{{daysDifference - diffToToday > 0 ? startDayDiffToToday : endDayDiffToToday}}</span>
+                  </p>
                 </div>
               </div>
             </basic-card>
@@ -30,28 +31,39 @@
         </section>
         <section class="row">
           <div class="graph-data">
-            <basic-card card-title="Broj slučajeva" card-icon="icon-trending-up" :loading="chartLoading" :loader-height="chartHeight+100+'px'">
-              <basic-button :color="chartType === 'line' ? 'secondary' : 'outline'"
-                            size="xsm"
-                            class="px-2"
-                            @click="changeGraphType('line')"
-                            v-tooltip="'Linijski grafik'">
-                <i class="icon-trending-up"></i>
-              </basic-button>
-              <basic-button :color="chartType === 'bar' ? 'secondary' : 'outline'"
-                            size="xsm"
-                            class="px-2 ml-1"
-                            @click="changeGraphType('bar')"
-                            v-tooltip="'Grafik sa stubićima'">
-                <i class="icon-bar-chart"></i>
-              </basic-button>
+            <basic-card card-title="Statistika" card-icon="icon-trending-up" :loading="chartLoading"
+                        :loader-height="chartHeight+100+'px'">
+              <div class="row justify-space-between align-items-center">
+                <div>
+                  <basic-button :color="chartType === 'line' ? 'secondary' : 'outline'"
+                                size="xsm"
+                                class="px-2"
+                                @click="changeGraphType('line')"
+                                v-tooltip="'Linijski grafik'">
+                    <i class="icon-trending-up"></i>
+                  </basic-button>
+                  <basic-button :color="chartType === 'bar' ? 'secondary' : 'outline'"
+                                size="xsm"
+                                class="px-2 ml-1"
+                                @click="changeGraphType('bar')"
+                                v-tooltip="'Grafik sa stubićima'">
+                    <i class="icon-bar-chart"></i>
+                  </basic-button>
+                </div>
+                <div class="stats">
+                  <p class="m-0">Poslednja promena: <span class="date">{{latestUpdate | formatAmericanDate}}</span></p>
+                  <p class="m-0">Poslednji podaci: <span class="confirmed">{{latestConfirmed}}</span>/<span
+                    class="deaths">{{latestDeaths}}</span></p>
+                </div>
+              </div>
               <transition name="fade" mode="out-in">
                 <line-chart v-if="chartType === 'line'" :chart-data="chartData" :options="chartOptions"
                             :height="chartHeight" ref="lineChartRef"></line-chart>
                 <bar-chart v-else-if="chartType === 'bar'" :chart-data="chartData" :options="chartOptions"
                            :height="chartHeight" ref="barChartRef"></bar-chart>
               </transition>
-              <p class="mb-0 mt-1" slot="footer">Izvor: <a href="https://corona.lmao.ninja" target="_blank">https://corona.lmao.ninja</a></p>
+              <p class="mb-0 mt-1" slot="footer">Izvor: <a href="https://corona.lmao.ninja" target="_blank">https://corona.lmao.ninja</a>
+              </p>
             </basic-card>
           </div>
         </section>
@@ -85,13 +97,14 @@ export default {
   name: 'Home',
   data () {
     return {
-      days: 12,
-      maxDays: 14,
       localData: null,
       chartHeight: 80,
       chartType: 'line',
       personalInfoLoading: true,
       chartLoading: true,
+      latestConfirmed: 0,
+      latestDeaths: 0,
+      latestUpdate: '',
       chartData: {
         labels: [],
         datasets: [
@@ -116,7 +129,7 @@ export default {
         maintainAspectRatio: true,
         scales: {
           xAxes: [{
-            display: false
+            display: true
           }],
           yAxes: [{
             display: true
@@ -142,7 +155,7 @@ export default {
     },
     nameFilter (value) {
       if (!value) return ''
-      if (value.endsWith('za') || value.endsWith('ža')) {
+      if (value.endsWith('za') || value.endsWith('ža') || value.endsWith('ra')) {
         return value.slice(0, -1) + 'o'
       } else if (value.endsWith('ca')) {
         return value.slice(0, -1) + 'e'
@@ -153,6 +166,11 @@ export default {
       } else {
         return value + 'e'
       }
+    },
+    formatAmericanDate (value) {
+      if (!value) return ''
+      const splitDate = value.split('/')
+      return splitDate[1] + '.' + splitDate[0] + '.' + '2020.'
     }
   },
   components: {
@@ -224,6 +242,10 @@ export default {
           this.chartData.labels = Object.keys(data.timeline.cases)
           this.chartData.datasets[0].data = Object.values(data.timeline.cases)
           this.chartData.datasets[1].data = Object.values(data.timeline.deaths)
+
+          this.latestConfirmed = Object.values(data.timeline.cases)[Object.values(data.timeline.cases).length - 1] || 0
+          this.latestDeaths = Object.values(data.timeline.deaths)[Object.values(data.timeline.deaths).length - 1] || 0
+          this.latestUpdate = Object.keys(data.timeline.cases)[Object.keys(data.timeline.cases).length - 1] || '-'
           resolve()
         } else {
           reject(new Error('Could not read data'))
@@ -246,7 +268,7 @@ export default {
     },
     getChartData () {
       this.chartLoading = true
-      this.getData('sitChart', 'https://corona.lmao.ninja/v2/historical/Serbia', 360)
+      this.getData('sitChart', 'https://corona.lmao.ninja/v2/historical/Serbia', 720)
         .then(res => {
           this.transformDataForChart(res)
             .then(() => {
@@ -336,6 +358,27 @@ export default {
         font-weight: bold;
         color: $text;
       }
+    }
+  }
+
+  .stats {
+    font-size: 0.85rem;
+    text-align: right;
+    color: $text-alt2;
+
+    .date {
+      font-weight: bold;
+      color: $text;
+    }
+
+    .confirmed {
+      font-weight: bold;
+      color: rgba(100, 45, 222, 0.75);
+    }
+
+    .deaths {
+      font-weight: bold;
+      color: $danger;
     }
   }
 </style>

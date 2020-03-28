@@ -2,7 +2,7 @@ export default {
   namespaced: true,
   state: {
     // initial state
-    sidebarToggled: true
+    sidebarToggled: false
   },
   getters: {
     isSidebarToggled: state => state.sidebarToggled
