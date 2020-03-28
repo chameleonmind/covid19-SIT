@@ -14,7 +14,7 @@
         <router-view/>
       </transition>
       <footer class="app-footer">
-        v0.1.4 | Miloš Milošević, 2020.
+        v0.1.5 | Miloš Milošević, 2020.
       </footer>
     </main>
     <notification/>
@@ -66,7 +66,7 @@ export default {
         },
         {
           name: 'twitter:description',
-          content: 'Track how long until your self-isolation will last, and get the latest information.'
+          content: 'Pratite koliko dugo ste u izolaciji i vesti o dešavanjima u vezi sa Covid-19'
         },
         {
           name: 'twitter:image',
@@ -91,7 +91,7 @@ export default {
         },
         {
           property: 'og:description',
-          content: 'Track how long until your self-isolation will last, and get the latest information.'
+          content: 'Pratite koliko dugo ste u izolaciji i vesti o dešavanjima u vezi sa Covid-19'
         }
       ]
     }
