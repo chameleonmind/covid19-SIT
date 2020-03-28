@@ -173,7 +173,7 @@ export default {
         this.getChartData()
       })
       .catch(e => {
-        console.log(e)
+        // console.log(e)
       })
   },
   computed: {
@@ -215,7 +215,7 @@ export default {
             })
         })
         .catch((e) => {
-          console.log(e)
+          // console.log(e)
         })
     },
     transformDataForChart (data) {

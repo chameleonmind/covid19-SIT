@@ -1,4 +1,3 @@
-// import differenceInMinutes from 'date-fns/differenceInMinutes'
 import { differenceInMinutes } from 'date-fns'
 
 export default {
@@ -25,7 +24,7 @@ export default {
         // console.log(key, JSON.stringify(dataToSave))
         localStorage.setItem(key, JSON.stringify(dataToSave))
       } catch (e) {
-        console.log(e)
+        // console.log(e)
       }
     },
     async getData (key, url, timeValid = 360) {
@@ -33,7 +32,6 @@ export default {
       const now = new Date()
       return new Promise((resolve, reject) => {
         if (timeValid !== 0 && Object.keys(storageSource).length && differenceInMinutes(now.getTime(), storageSource.timestamp) < timeValid) {
-          console.log('from LS')
           this.$notification.show({
             text: 'Nema novih podataka',
             type: 'info',
