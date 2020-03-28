@@ -44,6 +44,8 @@ $input-border-active: var(--input-border-active);
 $input-bg: var(--input-background);
 $input-radius: var(--input-radius);
 $default-radius: var(--default-radius);
+$big-radius: var(--big-radius);
+$full-radius: var(--full-radius);
 $shadow-sm: var(--shadow-sm);
 
 // Breakpoints
@@ -65,6 +67,8 @@ $grid-values: (
 );
 
 $breakpoints: (
+  // Extra Small Devices -- above 768px
+        exsm: 'min-width: #{map-get($grid-values, exsm)}',
   // Small Devices -- above 768px
         sm: 'min-width: #{map-get($grid-values, sm)}',
   // Medium Devices -- 1024px
@@ -77,3 +81,8 @@ $breakpoints: (
         xxl: 'min-width: #{map-get($grid-values, xxl)}'
 );
 
+$z-index: (
+        modal: 1002,
+        popup: 1003,
+        tooltip: 1004
+);

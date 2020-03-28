@@ -6,6 +6,7 @@
           <basic-input id="name"
                        name="name"
                        floating-label
+                       @input="clearError"
                        label="Ime" v-model="sitData.name"/>
         </div>
       </div>
@@ -16,6 +17,7 @@
                         :class="{'active' : sitData.startDate}"
                         v-model="sitData.startDate"
                         :disabled-dates="calendarDisabledDatesStart"
+                        @input="clearError"
                         clear-button>
               <div slot="beforeCalendarHeader" class="datepicker-header">
                 Odaberi početak izolacije
@@ -30,6 +32,7 @@
                         :class="{'active' : sitData.endDate}"
                         v-model="sitData.endDate"
                         :disabled-dates="calendarDisabledDatesEnd"
+                        @input="clearError"
                         clear-button>
               <div slot="beforeCalendarHeader" class="datepicker-header">
                 Odaberi datum kraja izolacije
@@ -40,10 +43,13 @@
         </div>
       </div>
       <div class="mt-3 text-center">
-        <basic-button color="primary" class="px-5 py-3" @click="saveData" modifier="prevent">
+        <basic-button color="primary" rounded class="px-5 py-3" @click="saveData" modifier="prevent">
           Sačuvaj
         </basic-button>
       </div>
+      <transition name="fade" mode="out-in">
+        <p class="error" v-if="error">Molim popunite sve podatke</p>
+      </transition>
     </basic-card>
   </div>
 </template>
@@ -62,7 +68,8 @@ export default {
         name: '',
         startDate: '',
         endDate: ''
-      }
+      },
+      error: false
     }
   },
   components: {
@@ -89,13 +96,27 @@ export default {
   },
   methods: {
     saveData () {
-      console.log('this.sitData', this.sitData)
-      this.$emit('save-data', this.sitData)
+      if (this.sitData.name && this.sitData.startDate && this.sitData.endDate) {
+        this.$emit('save-data', this.sitData)
+      } else {
+        this.error = true
+      }
+    },
+    clearError () {
+      this.error = false
     }
   }
 }
 </script>
 
 <style scoped lang="scss">
+  @import '../assets/css/themes/index';
 
+  .error {
+    margin: 1rem 0 0;
+    padding: 0.15rem;
+    background: $danger;
+    color: $text-button;
+    text-align: center;
+  }
 </style>

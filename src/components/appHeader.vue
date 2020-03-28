@@ -1,6 +1,6 @@
 <template>
   <div class="header-comp" :class="{'toggled': isSidebarToggled}">
-    <basic-button color="text" class="p-0 ml-3" @click="toggleSidebar">
+    <basic-button color="text" class="p-0 ml-3 font-s-md" @click="toggleSidebar">
       <i class="icon-menu"></i>
     </basic-button>
     <h1>Covid-19 Self-Isolation Tracker</h1>

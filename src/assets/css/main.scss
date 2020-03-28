@@ -12,7 +12,6 @@ body, html {
   line-height: 1.15;
   font-weight: normal;
   font-style: normal;
-  overflow: hidden;
   background: $base-alt;
   -webkit-text-size-adjust: 100%;
   -ms-text-size-adjust: 100%;
@@ -38,7 +37,9 @@ body, html {
 }
 
 .app-main {
+  position: relative;
   padding-top: 3rem;
+  padding-bottom: 1rem;
   min-height: 100vh;
   background: $work-area;
   transition: padding-left 0.3s ease;
@@ -56,14 +57,24 @@ body, html {
   }
 }
 
+.app-footer {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  display: inline-block;
+  background: $work-area;
+  font-size: 0.75rem;
+  color: $text-alt2;
+  padding: 0.25rem;
+}
+
 a, a:visited {
   color: $primary;
   border-bottom: 1px solid transparent;
   text-decoration: none;
-  word-break: break-all;
   transition: color 0.2s, border-color 0.2s;
 
-  &[target='_blank'] {
+  /*&[target='_blank'] {
     &::after {
       content: '\e95c';
       font-family: 'Feather';
@@ -71,7 +82,7 @@ a, a:visited {
       vertical-align: middle;
       color: $secondary;
     }
-  }
+  }*/
 
   &:hover {
     color: $primary-action;
@@ -90,11 +101,11 @@ a, a:visited {
 }
 
 .custom-scrollbar::-webkit-scrollbar-track {
-  background: $scroll-track;
+  background: #eeeeee;
 }
 
 .custom-scrollbar::-webkit-scrollbar-thumb {
-  background: $scroll-bar;
+  background: #b6b5c8;
 }
 
 .fade-enter-active, .fade-leave-active {
@@ -103,6 +114,17 @@ a, a:visited {
 
 .fade-enter, .fade-leave-to {
   opacity: 0;
+}
+
+.slide-enter-active, .slide-leave-active {
+  transition: opacity 0.2s, transform 0.2s;
+}
+
+.slide-enter, .slide-leave-to {
+  opacity: 0;
+  transform: translateY(10px);
+  transform-origin: top;
+  overflow: hidden;
 }
 
 .tooltip {

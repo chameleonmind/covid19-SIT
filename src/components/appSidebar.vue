@@ -7,7 +7,7 @@
       <router-link id="menu-home"
                    class="menu-item"
                    to="/"
-                   v-tooltip="{placement: 'right', content: 'Home'}">
+                   v-tooltip="{placement: 'right', content: 'Početna'}">
         <i class="icon-home"></i>
         <span class="menu-item__text">Početna</span>
       </router-link>
@@ -20,14 +20,14 @@
       </router-link>-->
     </nav>
     <div class="sidebar-footer">
-      <!--<router-link class="menu-item"
-                   v-tooltip="{placement: 'right', content: 'Settings'}"
-                   to="/about">
+      <router-link class="menu-item"
+                   v-tooltip="{placement: 'right', content: 'Podešavanja'}"
+                   to="/settings">
         <i class="icon-settings"></i>
-      </router-link>-->
+      </router-link>
       <basic-button color="text"
                     @click="toggleSidebar"
-                    v-tooltip="{placement: 'right', content: isSidebarToggled ? 'Expand' : 'Collapse'}">
+                    v-tooltip="{placement: 'right', content: isSidebarToggled ? 'Proširi' : 'Skupi'}">
         <i class="icon-chevrons-right" v-if="isSidebarToggled && !isMobile"></i>
         <i class="icon-chevrons-left" v-else></i>
       </basic-button>
@@ -58,6 +58,19 @@ export default {
     ...mapActions('sidebar', ['toggleSidebar']),
     checkIfResolutionMobile () {
       this.isMobile = window.innerWidth < 1024
+    }
+  },
+  watch: {
+    $route: {
+      handler () {
+        if (this.isMobile) {
+          const tempTimeout = setTimeout(() => {
+            this.toggleSidebar()
+            clearTimeout(tempTimeout)
+          }, 300)
+        }
+      },
+      immediate: true
     }
   }
 }
@@ -261,16 +274,21 @@ export default {
     padding: 0.5rem;
     display: flex;
     align-items: center;
-    justify-content: flex-end;
+    justify-content: space-between;
     transition: background-color .3s;
 
     .menu-item, .menu-item:visited {
       color: inherit;
+      padding: 0.5rem;
 
       i {
         margin-left: 0;
       }
     }
+  }
+
+  .comp-sidebar.toggled .sidebar-footer .menu-item i {
+    margin: auto;
   }
 
   .logo-placeholder {
