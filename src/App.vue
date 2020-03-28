@@ -14,7 +14,7 @@
         <router-view/>
       </transition>
       <footer class="app-footer">
-        v0.1.5 | Miloš Milošević, 2020.
+        v0.1.6 | Miloš Milošević, 2020.
       </footer>
     </main>
     <notification/>
@@ -92,6 +92,10 @@ export default {
         {
           property: 'og:description',
           content: 'Pratite koliko dugo ste u izolaciji i vesti o dešavanjima u vezi sa Covid-19'
+        },
+        {
+          property: 'og:url',
+          content: ROOT_PATH
         }
       ]
     }
