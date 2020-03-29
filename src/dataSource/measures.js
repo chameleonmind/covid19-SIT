@@ -28,15 +28,9 @@ const measures = {
       },
       {
         name: 'Izuzetak od zabrane kretanja',
-        description: 'Pripadnici MUP-a i ministarstva odbrane koji su na zadatku'
-      },
-      {
-        name: 'Izuzetak od zabrane kretanja',
-        description: 'Zdravstveni radnici sa licencom'
-      },
-      {
-        name: 'Izuzetak od zabrane kretanja',
-        description: 'Lica kojima MUP izda dozvolu'
+        description: '1. Pripadnici MUP-a i ministarstva odbrane koji su na zadatku; ' +
+          '2. Zdravstveni radnici sa licencom; ' +
+          '3. Lica kojima MUP izda dozvolu'
       }
     ]
   }
