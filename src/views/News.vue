@@ -28,7 +28,7 @@ export default {
   methods: {
     ...mapActions('news', ['markAsSeen']),
     confirmAction () {
-      console.log('I confirm!')
+      // console.log('I confirm!')
     }
   }
 }
