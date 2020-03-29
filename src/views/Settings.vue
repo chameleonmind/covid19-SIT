@@ -94,7 +94,7 @@ export default {
 
 <style scoped lang="scss">
   .settings {
-    padding: 0.5rem 1rem;
+    padding: 1rem;
     background: #fff;
     min-height: calc(100vh - 4.5rem);
 

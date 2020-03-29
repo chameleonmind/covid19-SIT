@@ -43,7 +43,7 @@ body, html {
 
 .app-main {
   position: relative;
-  padding-top: 3rem;
+  padding-top: 3.5rem;
   padding-bottom: 1rem;
   min-height: 100vh;
   background: $work-area;
@@ -130,6 +130,15 @@ a, a:visited {
   transform: translateY(10px);
   transform-origin: top;
   overflow: hidden;
+}
+
+.slidetop-enter-active, .slidetop-leave-active {
+  transition: margin-top .2s, opacity .2s;
+}
+
+.slidetop-enter, .slidetop-leave-to {
+  margin-top: -10px;
+  opacity: 0;
 }
 
 .tooltip {
@@ -332,4 +341,13 @@ a, a:visited {
     padding-top: 0.25rem;
     transform: translateY(-3rem) translateX(2px);
   }
+}
+
+hr {
+  border: none;
+  border-bottom: 1px solid $border;
+}
+
+ul li {
+  margin-bottom: 0.5rem;
 }

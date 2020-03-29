@@ -8,27 +8,34 @@
       <router-link id="menu-home"
                    class="menu-item"
                    to="/"
-                   v-tooltip="{placement: 'right', content: 'Početna'}">
+                   v-tooltip="isMobile || !isSidebarToggled ? {} : {placement: 'right', content: 'Početna'}">
         <i class="icon-home"></i>
         <span class="menu-item__text">Početna</span>
       </router-link>
-      <!--<router-link id="menu-about"
+      <!--<router-link id="menu-news"
+                   class="menu-item"
+                   to="/news"
+                   v-tooltip="{placement: 'right', content: 'Vesti'}">
+        <i class="icon-activity"></i>
+        <span class="menu-item__text">Vesti</span>
+      </router-link>-->
+      <router-link id="menu-about"
                    class="menu-item"
                    to="/about"
-                   v-tooltip="{placement: 'right', content: 'About'}">
+                   v-tooltip="isMobile || !isSidebarToggled ? {} : {placement: 'right', content: 'O aplikaciji'}">
         <i class="icon-info"></i>
-        <span class="menu-item__text">About</span>
-      </router-link>-->
+        <span class="menu-item__text">O aplikaciji</span>
+      </router-link>
     </nav>
     <div class="sidebar-footer">
       <router-link class="menu-item"
-                   v-tooltip="{placement: 'right', content: 'Podešavanja'}"
+                   v-tooltip="isMobile ? {} : {placement: 'right', content: 'Podešavanja'}"
                    to="/settings">
         <i class="icon-settings"></i>
       </router-link>
       <basic-button color="text"
                     @click="toggleSidebar"
-                    v-tooltip="{placement: 'right', content: isSidebarToggled ? 'Proširi' : 'Skupi'}">
+                    v-tooltip="isMobile ? {} : {placement: 'right', content: isSidebarToggled ? 'Proširi' : 'Skupi'}">
         <i class="icon-chevrons-right" v-if="isSidebarToggled && !isMobile"></i>
         <i class="icon-chevrons-left" v-else></i>
       </basic-button>

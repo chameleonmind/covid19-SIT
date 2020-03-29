@@ -41,13 +41,16 @@ export default {
       okText: '',
       cancelText: '',
       onConfirm: {},
-      onCancel: {}
+      onHidden: {}
     }
   },
   components: { BasicButton },
   methods: {
     hideConfirmation () {
       this.visible = false
+      if (typeof this.onHidden === 'function') {
+        this.onHidden()
+      }
     },
     confirmAction () {
       // we must check if this.onConfirm is function
@@ -70,7 +73,7 @@ export default {
       this.onConfirm = params.onConfirm
       this.okText = params.okText || 'OK'
       this.cancelText = params.cancelText || 'Cancel'
-      // this.onCancel = params.onCancel || this.hideConfirmation()
+      this.onHidden = params.onHidden
     }
   },
   beforeMount () {

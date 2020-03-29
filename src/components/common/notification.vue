@@ -88,8 +88,8 @@ export default {
   .notification {
     position: fixed;
     top: 10px;
-    right: 30px;
-    box-shadow: $shadow;
+    right: 10px;
+    box-shadow: $shadow-sm;
     border-radius: .25rem;
     border: 1px solid $border;
     z-index: map_get($z-index, popup);
