@@ -5,7 +5,7 @@
       Usled brzog širenja korona virusa, suočeni smo sa obavezom da se na neko vreme distanciramo od drugih ljudi.
     </p>
     <p>
-      Poenta ove aplikacije je praćenje vremena koje provodimo u samoizolaciji i praćenje najnovijih uputstava
+      Svrha ove aplikacije je praćenje vremena koje provodimo u samoizolaciji i praćenje najnovijih uputstava
       stručnjaka i vesti koje nam dolaze u vezi sa Covid-19 virusom.
     </p>
     <p>
@@ -46,6 +46,8 @@
       <li><a href="https://github.com/chameleonmind/" target="_blank">GitHub</a></li>
       <li><a href="https://www.linkedin.com/in/milosevicm/" target="_blank">LinkedIn</a></li>
     </ul>
+    <hr>
+    <p class="m-0">Made with <a href="https://vuejs.org/" target="_blank">VueJS</a></p>
   </div>
 </template>
 <script>

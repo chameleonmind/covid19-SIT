@@ -1,41 +1,45 @@
 const measures = {
-  measures: [
-    {
-      name: 'Zabrana kretanja',
-      measures: [
-        {
-          icon: 'icon-home',
-          name: 'Za sve osobe',
-          description: 'Od 17h do 5 ujutru'
-        },
-        {
-          icon: require('./icons/logo.png'),
-          name: 'Za starije od 65',
-          description: 'Tokom celog dana u gradskim sredinama'
-        },
-        {
-          icon: './icons/logo.png',
-          name: 'Za starije od 70',
-          description: 'Tokom celog dana u seoskim sredinama'
-        },
-        {
-          icon: './icons/logo.png',
-          name: 'Prva ime',
-          description: 'Prva mera opis'
-        },
-        {
-          icon: './icons/logo.png',
-          name: 'Prva ime',
-          description: 'Prva mera opis'
-        },
-        {
-          icon: './icons/logo.png',
-          name: 'Prva ime',
-          description: 'Prva mera opis'
-        }
-      ]
-    }
-  ]
+  sr: {
+    measures: [
+      {
+        icon: '',
+        name: 'Zabrana kretanja',
+        description: 'Od 17h do 5h ujutru'
+      },
+      {
+        name: 'Zabrana kretanja vikendom',
+        description: 'Od 15h do 5h ujutru'
+      },
+      {
+        name: 'Zabrana kretanja starijim osobama',
+        description: 'Tokom celog dana starijim od 65 godina u gradskim sredinama'
+      },
+      {
+        name: 'Zabrana kretanja starijim osobama',
+        description: 'Tokom celog dana starijim od 70 godina u seoskim sredinama'
+      },
+      {
+        name: 'Javna okupljanja u zatvorenom prostoru',
+        description: 'Zabrana boravka više za više od 5 osoba u jednom trenutku'
+      },
+      {
+        name: 'Izvođenje kućnih ljubimaca',
+        description: 'Izvođenje kućnih ljubimaca nije dozvoljeno posle 17h, odnosno posle 15h vikendom'
+      },
+      {
+        name: 'Izuzetak od zabrane kretanja',
+        description: 'Pripadnici MUP-a i ministarstva odbrane koji su na zadatku'
+      },
+      {
+        name: 'Izuzetak od zabrane kretanja',
+        description: 'Zdravstveni radnici sa licencom'
+      },
+      {
+        name: 'Izuzetak od zabrane kretanja',
+        description: 'Lica kojima MUP izda dozvolu'
+      }
+    ]
+  }
 }
 
 export default measures

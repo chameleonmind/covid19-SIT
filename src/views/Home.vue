@@ -18,12 +18,6 @@
               </div>
             </basic-card>
           </div>
-          <div class="recommendations" v-if="false">
-            <basic-card card-title="Na snazi je vanredno stanje" card-icon="icon-alert-triangle" icon-color="#d75044">
-              <precautionary-measures :precautions="recommendedMeasures.measures"/>
-              <p class="m-0" slot="footer">Icons by: </p>
-            </basic-card>
-          </div>
           <div class="useful-info">
             <basic-card card-title="Korisne informacije" card-icon="icon-info">
               <useful-info/>
@@ -32,7 +26,7 @@
         </section>
         <section class="row">
           <div class="graph-data">
-            <basic-card card-title="Statistika" card-icon="icon-trending-up" :loading="chartLoading"
+            <basic-card card-title="Statistika (Srbija)" card-icon="icon-trending-up" :loading="chartLoading"
                         :loader-height="chartHeight+100+'px'">
               <div class="row justify-space-between">
                 <div>
@@ -94,6 +88,31 @@
             </basic-card>
           </div>
         </section>
+        <div class="row">
+          <div class="p-2">
+            <basic-card card-title="Preventivne mere zaštite od koronavirusa" card-icon="icon-alert-octagon">
+              <recommendations/>
+              <div slot="footer" class="row justify-space-between">
+                <p class="m-0">Izvor <a
+                  href="http://rs.n1info.com/Zdravlje/a576624/Pravilna-primena-mera-zastite-od-koronavirusa.html"
+                  target="_blank">N1</a></p>
+                <p class="m-0">Ikone: <a
+                  href="https://www.iconfinder.com/iconpai"
+                  target="_blank">iconpai</a></p>
+              </div>
+            </basic-card>
+          </div>
+        </div>
+        <div class="row">
+          <div class="p-2">
+            <basic-card card-title="Na snazi je vanredno stanje" card-icon="icon-alert-triangle" icon-color="#d75044">
+              <precautionary-measures/>
+              <p slot="footer" class="m-0">Izvor <a
+                href="http://rs.n1info.com/Vesti/a578399/Mere-tokom-vanrednog-stanja.html"
+                target="_blank">N1</a></p>
+            </basic-card>
+          </div>
+        </div>
       </div>
       <div class="row" v-else>
         <div class="col col-md-2 col-no-grow ml-auto mr-auto mt-3">
@@ -121,6 +140,7 @@ import dataGetter from '../mixins/dataGetter'
 import UsefulInfo from '../components/usefulInfo'
 import BasicButton from '../components/common/basicButton'
 import BarChart from '../components/barChart'
+import Recommendations from '../components/recommendations'
 
 export default {
   name: 'Home',
@@ -205,6 +225,7 @@ export default {
     }
   },
   components: {
+    Recommendations,
     BarChart,
     BasicButton,
     UsefulInfo,

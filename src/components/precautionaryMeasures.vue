@@ -1,26 +1,27 @@
 <template>
-  <div class="recommended-measures">
-    <section v-for="precausionGroup in precautions" :key="precausionGroup.name">
-      <h3 class="title">{{precausionGroup.name}}</h3>
-      <div class="row">
-        <div class="measure" v-for="(measure, idx) in precausionGroup.measures" :key="'measure'+idx">
-          <!--<i class="icon icon-"></i>
-          <img :src="measure.icon" alt="" />-->
-          <h5 class="name">{{measure.name}}</h5>
-          <p class="description">{{measure.description}}</p>
-        </div>
+  <div class="emergency-measures">
+    <div class="row">
+      <div class="measure" v-for="(measure, idx) in emergencyMeasures.measures" :key="'measure'+idx">
+        <p class="number-icon">{{idx+1}}</p>
+        <h5 class="name">{{measure.name}}</h5>
+        <p class="description">{{measure.description}}</p>
       </div>
-    </section>
+    </div>
   </div>
 </template>
-
 <script>
+import emergencyMeasuresSource from '../dataSource/measures'
+
 export default {
-  name: 'precautionaryMeasures',
-  props: {
-    precautions: {
-      type: Array,
-      required: true
+  name: 'recommendations',
+  data () {
+    return {
+      language: 'sr'
+    }
+  },
+  computed: {
+    emergencyMeasures () {
+      return emergencyMeasuresSource[this.language]
     }
   }
 }
@@ -29,33 +30,44 @@ export default {
 <style scoped lang="scss">
   @import '../assets/css/themes/index';
 
-  .recommended-measures {
-    .title {
-      font-size: 1rem;
-      color: $text;
-    }
-
+  .emergency-measures {
     .row {
       justify-content: space-around;
       flex-wrap: wrap;
     }
 
     .measure {
-      flex: 0 0 20%;
+      flex: 0 0 100%;
       margin: 0 0.5rem;
       text-align: center;
 
-      .icon {
-        font-size: 1.5rem;
-        color: $text-alt2;
-        margin-bottom: 0.5rem;
-        display: block;
+      @media screen and(map_get($breakpoints, 'sm')) {
+        flex-basis: 35%;
+      }
+
+      @media screen and(map_get($breakpoints, 'md')) {
+        flex-basis: 25%;
+      }
+
+      .number-icon {
+        width: 2rem;
+        height: 2rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.2rem;
+        font-weight: bold;
+        color: $primary;
+        line-height: 0.5;
+        border-radius: $full-radius;
+        background: $plain;
+        margin: 0 auto;
       }
 
       .name {
         font-size: 1rem;
         color: $text;
-        margin: 0 0 0.5rem;
+        margin: 0.5rem 0 0.5rem;
       }
 
       .description {
