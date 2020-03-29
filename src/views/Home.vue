@@ -63,6 +63,32 @@
                 <bar-chart v-else-if="chartType === 'bar'" :chart-data="chartData" :options="chartOptions"
                            :height="chartHeight" ref="barChartRef"></bar-chart>
               </transition>
+              <div class="text-center">
+                <basic-button :color="timeSpan === 60 ? 'secondary' : 'outline'"
+                              size="xsm"
+                              class="m-1 px-2"
+                              rounded
+                              @click="changeTimeSpan(60)">60 dana
+                </basic-button>
+                <basic-button :color="timeSpan === 30 ? 'secondary' : 'outline'"
+                              size="xsm"
+                              class="m-1 px-2"
+                              rounded
+                              @click="changeTimeSpan(30)">30 dana
+                </basic-button>
+                <basic-button :color="timeSpan === 14 ? 'secondary' : 'outline'"
+                              size="xsm"
+                              class="m-1 px-2"
+                              rounded
+                              @click="changeTimeSpan(14)">14 dana
+                </basic-button>
+                <basic-button :color="timeSpan === 7 ? 'secondary' : 'outline'"
+                              size="xsm"
+                              class="m-1 px-2"
+                              rounded
+                              @click="changeTimeSpan(7)">7 dana
+                </basic-button>
+              </div>
               <p class="mb-0 mt-1" slot="footer">Izvor: <a href="https://corona.lmao.ninja" target="_blank">https://corona.lmao.ninja</a>
               </p>
             </basic-card>
@@ -108,6 +134,7 @@ export default {
       latestConfirmed: 0,
       latestDeaths: 0,
       latestUpdate: '',
+      timeSpan: 60,
       chartData: {
         labels: [],
         datasets: [
@@ -243,9 +270,9 @@ export default {
     transformDataForChart (data) {
       return new Promise((resolve, reject) => {
         if (data.timeline.cases) {
-          this.chartData.labels = Object.keys(data.timeline.cases)
-          this.chartData.datasets[0].data = Object.values(data.timeline.cases)
-          this.chartData.datasets[1].data = Object.values(data.timeline.deaths)
+          this.chartData.labels = Object.keys(data.timeline.cases).slice(0 - this.timeSpan)
+          this.chartData.datasets[0].data = Object.values(data.timeline.cases).slice(0 - this.timeSpan)
+          this.chartData.datasets[1].data = Object.values(data.timeline.deaths).slice(0 - this.timeSpan)
 
           this.latestConfirmed = Object.values(data.timeline.cases)[Object.values(data.timeline.cases).length - 1] || 0
           this.latestDeaths = Object.values(data.timeline.deaths)[Object.values(data.timeline.deaths).length - 1] || 0
@@ -256,11 +283,17 @@ export default {
         }
       })
     },
+    changeTimeSpan (value) {
+      this.timeSpan = value
+      this.getChartData()
+    },
     setChartHeight () {
-      if (window.innerWidth < 768) {
-        this.chartHeight = 180
+      if (window.innerWidth <= 768) {
+        this.chartHeight = 220
+      } else if (window.innerWidth > 768 && window.innerWidth <= 1024) {
+        this.chartHeight = 160
       } else {
-        this.chartHeight = 80
+        this.chartHeight = 100
       }
     },
     changeGraphType (value) {
@@ -280,7 +313,8 @@ export default {
               this.setChartHeight()
               // refresh chart
               this.$nextTick(() => {
-                this.$refs.lineChartRef.refreshChart()
+                if (this.$refs.lineChartRef) this.$refs.lineChartRef.refreshChart()
+                if (this.$refs.barChartRef) this.$refs.barChartRef.refreshChart()
               })
             })
         })

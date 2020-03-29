@@ -17,6 +17,11 @@ export default {
   },
   mounted () {
     this.renderChart(this.chartData, this.options)
+  },
+  methods: {
+    refreshChart () {
+      this.renderChart(this.chartData, this.options)
+    }
   }
 }
 </script>
