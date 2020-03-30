@@ -14,7 +14,7 @@
         <router-view/>
       </transition>
       <footer class="app-footer">
-        v0.2.0 | Miloš Milošević, 2020.
+        v0.3.0 | Miloš Milošević, 2020.
       </footer>
     </main>
     <notification/>
@@ -102,6 +102,7 @@ export default {
   }
 }
 </script>
+<style src="./assets/css/main.scss" lang="scss"></style>
 <style scoped lang="scss">
   .backdrop {
     position: fixed;

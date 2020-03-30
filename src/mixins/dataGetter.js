@@ -1,4 +1,4 @@
-import { differenceInMinutes } from 'date-fns'
+import { differenceInMinutes } from 'date-fns/esm'
 
 export default {
   methods: {
@@ -11,7 +11,7 @@ export default {
           return {}
         }
       } catch (e) {
-        throw new Error('Cannot fetch data from localstorage')
+        throw new Error(this.$t('translations.common.dataUnavailable'))
       }
     },
     setInStorageWithTimestamp (key, data) {
@@ -33,7 +33,7 @@ export default {
       return new Promise((resolve, reject) => {
         if (timeValid !== 0 && Object.keys(storageSource).length && differenceInMinutes(now.getTime(), storageSource.timestamp) < timeValid) {
           this.$notification.show({
-            text: 'Nema novih podataka',
+            text: this.$t('translations.common.noNewData'),
             type: 'info',
             duration: 3000
           })
@@ -47,15 +47,15 @@ export default {
                 resolve(response.data)
 
                 this.$notification.show({
-                  text: 'Preuzeti su najnoviji podaci',
+                  text: this.$t('translations.common.newDataFetched'),
                   type: 'success',
                   duration: 3000
                 })
               } else {
-                reject(new Error('Podaci nisu dostupni'))
+                reject(new Error(this.$t('translations.common.dataUnavailable')))
 
                 this.$notification.show({
-                  text: 'Došlo je do greške prilikom preuzimanja podataka',
+                  text: this.$t('translations.common.dataError'),
                   type: 'error',
                   duration: 3000
                 })

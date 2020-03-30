@@ -2,15 +2,15 @@
   <div class="comp-sidebar" :class="{'toggled': isSidebarToggled}">
     <div class="logo">
       <img src="../assets/logo.png" alt="SIT">
-      <h1 class="app-name" :class="{'visible' : !isSidebarToggled || isMobile}">Covid-19 SIT</h1>
+      <h1 class="app-name" :class="{'visible' : !isSidebarToggled || isMobile}">{{$shortAppName}}</h1>
     </div>
     <nav class="sidebar-nav">
       <router-link id="menu-home"
                    class="menu-item"
                    to="/"
-                   v-tooltip="isMobile || !isSidebarToggled ? {} : {placement: 'right', content: 'Početna'}">
+                   v-tooltip="isMobile || !isSidebarToggled ? {} : {placement: 'right', content: $t('translations.menu.homePage')}">
         <i class="icon-home"></i>
-        <span class="menu-item__text">Početna</span>
+        <span class="menu-item__text">{{$t('translations.menu.homePage')}}</span>
       </router-link>
       <!--<router-link id="menu-news"
                    class="menu-item"
@@ -22,20 +22,20 @@
       <router-link id="menu-about"
                    class="menu-item"
                    to="/about"
-                   v-tooltip="isMobile || !isSidebarToggled ? {} : {placement: 'right', content: 'O aplikaciji'}">
+                   v-tooltip="isMobile || !isSidebarToggled ? {} : {placement: 'right', content: $t('translations.menu.aboutPage')}">
         <i class="icon-info"></i>
-        <span class="menu-item__text">O aplikaciji</span>
+        <span class="menu-item__text">{{$t('translations.menu.aboutPage')}}</span>
       </router-link>
     </nav>
     <div class="sidebar-footer">
       <router-link class="menu-item"
-                   v-tooltip="isMobile ? {} : {placement: 'right', content: 'Podešavanja'}"
+                   v-tooltip="isMobile ? {} : {placement: 'right', content: $t('translations.menu.settingsPage')}"
                    to="/settings">
         <i class="icon-settings"></i>
       </router-link>
       <basic-button color="text"
                     @click="toggleSidebar"
-                    v-tooltip="isMobile ? {} : {placement: 'right', content: isSidebarToggled ? 'Proširi' : 'Skupi'}">
+                    v-tooltip="isMobile ? {} : {placement: 'right', content: isSidebarToggled ? $t('translations.menu.expandSidebar') : $t('translations.menu.collapseSidebar')}">
         <i class="icon-chevrons-right" v-if="isSidebarToggled && !isMobile"></i>
         <i class="icon-chevrons-left" v-else></i>
       </basic-button>

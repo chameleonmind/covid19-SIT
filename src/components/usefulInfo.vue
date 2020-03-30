@@ -35,17 +35,14 @@
 
 <script>
 import info from '../dataSource/information'
+import { mapGetters } from 'vuex'
 
 export default {
   name: 'usefulInfo',
-  data () {
-    return {
-      language: 'sr'
-    }
-  },
   computed: {
+    ...mapGetters('language', ['getAppLanguage']),
     information () {
-      return info[this.language]
+      return info[this.getAppLanguage]
     }
   }
 }

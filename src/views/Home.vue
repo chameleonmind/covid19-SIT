@@ -4,14 +4,17 @@
       <div v-if="localData && Object.keys(localData).length && !personalInfoLoading">
         <section class="row">
           <div class="personal-data">
-            <basic-card :card-title="`Zdravo ${$options.filters.nameFilter(localData.name)}!`" card-icon="icon-user"
-                        :loading="personalInfoLoading">
+            <basic-card
+              :card-title="`${$t('translations.home.daysProgress.hello')} ${getAppLanguage === 'en' ? $options.filters.firstName(localData.name) : $options.filters.nameFilter(localData.name)}!`"
+              card-icon="icon-user"
+              :loading="personalInfoLoading">
               <div class="days-progress">
                 <days-progress :days-passed="diffToToday" :max-days="daysDifference"/>
                 <div class="progress-info">
-                  <p>Početak: <span>{{localData.startDate | formatDate}}</span></p>
-                  <p>Kraj: <span>{{localData.endDate | formatDate}}</span></p>
-                  <p>Proteklo:
+                  <p>{{$t('translations.home.daysProgress.start')}} <span>{{localData.startDate | formatDate}}</span>
+                  </p>
+                  <p>{{$t('translations.home.daysProgress.end')}} <span>{{localData.endDate | formatDate}}</span></p>
+                  <p>{{$t('translations.home.daysProgress.elapsedTime')}}
                     <span>{{daysDifference - diffToToday > 0 ? startDayDiffToToday : endDayDiffToToday}}</span>
                   </p>
                 </div>
@@ -19,14 +22,15 @@
             </basic-card>
           </div>
           <div class="useful-info">
-            <basic-card card-title="Korisne informacije" card-icon="icon-info">
+            <basic-card :card-title="$t('translations.home.usefulInfo.title')" card-icon="icon-info">
               <useful-info/>
             </basic-card>
           </div>
         </section>
         <section class="row">
           <div class="graph-data">
-            <basic-card card-title="Statistika (Srbija)" card-icon="icon-trending-up" :loading="chartLoading"
+            <basic-card :card-title="$t('translations.home.stats.title')" card-icon="icon-trending-up"
+                        :loading="chartLoading"
                         :loader-height="chartHeight+100+'px'">
               <div class="row justify-space-between">
                 <div>
@@ -34,21 +38,22 @@
                                 size="xsm"
                                 class="px-2"
                                 @click="changeGraphType('line')"
-                                v-tooltip="'Linijski grafik'">
+                                v-tooltip="$t('translations.home.stats.lineGraph')">
                     <i class="icon-trending-up"></i>
                   </basic-button>
                   <basic-button :color="chartType === 'bar' ? 'secondary' : 'outline'"
                                 size="xsm"
                                 class="px-2 ml-1"
                                 @click="changeGraphType('bar')"
-                                v-tooltip="'Grafik sa stubićima'">
+                                v-tooltip="$t('translations.home.stats.barChart')">
                     <i class="icon-bar-chart"></i>
                   </basic-button>
                 </div>
                 <div class="stats">
-                  <p class="m-0">Poslednja promena: <span class="date">{{latestUpdate | formatAmericanDate}}</span></p>
-                  <p class="m-0">Poslednji podaci: <span class="confirmed">{{latestConfirmed}}</span>/<span
-                    class="deaths">{{latestDeaths}}</span></p>
+                  <p class="m-0">{{$t('translations.home.stats.lastChangeDate')}} <span class="date">{{latestUpdate | formatAmericanDate}}</span>
+                  </p>
+                  <p class="m-0">{{$t('translations.home.stats.latestData')}} <span class="confirmed">{{latestConfirmed}}</span>/<span
+                    class="deaths">{{latestDeaths}}</span>/<span class="recovered">{{latestRecovered}}</span></p>
                 </div>
               </div>
               <transition name="fade" mode="out-in">
@@ -62,52 +67,57 @@
                               size="xsm"
                               class="m-1 px-2"
                               rounded
-                              @click="changeTimeSpan(60)">60 dana
+                              @click="changeTimeSpan(60)">
+                  {{$t('translations.home.stats.60days')}}
                 </basic-button>
                 <basic-button :color="timeSpan === 30 ? 'secondary' : 'outline'"
                               size="xsm"
                               class="m-1 px-2"
                               rounded
-                              @click="changeTimeSpan(30)">30 dana
+                              @click="changeTimeSpan(30)">
+                  {{$t('translations.home.stats.30days')}}
                 </basic-button>
                 <basic-button :color="timeSpan === 14 ? 'secondary' : 'outline'"
                               size="xsm"
                               class="m-1 px-2"
                               rounded
-                              @click="changeTimeSpan(14)">14 dana
+                              @click="changeTimeSpan(14)">
+                  {{$t('translations.home.stats.14days')}}
                 </basic-button>
                 <basic-button :color="timeSpan === 7 ? 'secondary' : 'outline'"
                               size="xsm"
                               class="m-1 px-2"
                               rounded
-                              @click="changeTimeSpan(7)">7 dana
+                              @click="changeTimeSpan(7)">
+                  {{$t('translations.home.stats.7days')}}
                 </basic-button>
               </div>
-              <p class="mb-0 mt-1" slot="footer">Izvor: <a href="https://corona.lmao.ninja" target="_blank">https://corona.lmao.ninja</a>
+              <p class="mb-0 mt-1" slot="footer">{{$t('translations.common.source')}}: <a
+                href="https://corona.lmao.ninja" target="_blank">https://corona.lmao.ninja</a>
               </p>
             </basic-card>
           </div>
         </section>
         <div class="row">
           <div class="p-2">
-            <basic-card card-title="Preventivne mere zaštite od koronavirusa" card-icon="icon-alert-octagon">
+            <basic-card :card-title="$t('translations.home.measures.title')" card-icon="icon-alert-octagon">
               <recommendations/>
               <div slot="footer" class="row justify-space-between">
-                <p class="m-0">Izvor <a
+                <p class="m-0">{{$t('translations.common.source')}}: <a
                   href="http://rs.n1info.com/Zdravlje/a576624/Pravilna-primena-mera-zastite-od-koronavirusa.html"
                   target="_blank">N1</a></p>
-                <p class="m-0">Ikone: <a
+                <p class="m-0">{{$t('translations.common.icons')}}: <a
                   href="https://www.iconfinder.com/iconpai"
                   target="_blank">iconpai</a></p>
               </div>
             </basic-card>
           </div>
         </div>
-        <div class="row">
+        <div class="row" v-if="getAppLanguage === 'sr'">
           <div class="p-2">
             <basic-card card-title="Na snazi je vanredno stanje" card-icon="icon-alert-triangle" icon-color="#d75044">
               <precautionary-measures/>
-              <p slot="footer" class="m-0">Izvor <a
+              <p slot="footer" class="m-0">{{$t('translations.common.source')}}: <a
                 href="http://rs.n1info.com/Vesti/a578399/Mere-tokom-vanrednog-stanja.html"
                 target="_blank">N1</a></p>
             </basic-card>
@@ -116,7 +126,7 @@
       </div>
       <div class="row" v-else>
         <div class="col col-md-2 col-no-grow ml-auto mr-auto mt-3">
-          <basic-card card-title="Podešavanja" card-icon="icon-user">
+          <basic-card :card-title="$t('translations.personalInfo.title')" card-icon="icon-user">
             <add-isolation-info @save-data="saveData"/>
           </basic-card>
         </div>
@@ -128,19 +138,12 @@
 <script>
 import BasicCard from '../components/common/basicCard'
 import DaysProgress from '../components/daysProgress'
-import AddIsolationInfo from '../components/addIsolationInfo'
 import localStorageMixin from '../mixins/localStorage'
-import differenceInDays from 'date-fns/differenceInCalendarDays'
-import parseISO from 'date-fns/parseISO'
-import format from 'date-fns/format'
-import precautionaryMeasures from '../components/precautionaryMeasures'
+import { differenceInDays, parseISO, format } from 'date-fns/esm'
 import measures from '../dataSource/measures.js'
-import LineChart from '../components/lineChart'
 import dataGetter from '../mixins/dataGetter'
-import UsefulInfo from '../components/usefulInfo'
 import BasicButton from '../components/common/basicButton'
-import BarChart from '../components/barChart'
-import Recommendations from '../components/recommendations'
+import { mapGetters } from 'vuex'
 
 export default {
   name: 'Home',
@@ -153,21 +156,29 @@ export default {
       chartLoading: true,
       latestConfirmed: 0,
       latestDeaths: 0,
+      latestRecovered: 0,
       latestUpdate: '',
       timeSpan: 60,
       chartData: {
         labels: [],
         datasets: [
           {
-            label: 'Potvrđeni slučajevi',
+            label: this.$t('translations.home.stats.confirmedCases'),
             backgroundColor: 'rgba(100,45,222, 0.75)',
             data: [],
             pointRadius: 2,
             pointHoverRadius: 8
           },
           {
-            label: 'Smrtni slučajevi',
-            backgroundColor: '#d75044',
+            label: this.$t('translations.home.stats.deathCases'),
+            backgroundColor: 'rgba(215,80,68,0.75)',
+            data: [],
+            pointRadius: 2,
+            pointHoverRadius: 8
+          },
+          {
+            label: this.$t('translations.home.stats.recoveredCases'),
+            backgroundColor: 'rgba(72,181,89,0.75)',
             data: [],
             pointRadius: 2,
             pointHoverRadius: 8
@@ -218,6 +229,10 @@ export default {
         return value + 'e'
       }
     },
+    firstName (name) {
+      if (!name) return ''
+      return name.split(' ')[0]
+    },
     formatAmericanDate (value) {
       if (!value) return ''
       const splitDate = value.split('/')
@@ -225,13 +240,13 @@ export default {
     }
   },
   components: {
-    Recommendations,
-    BarChart,
+    Recommendations: () => import('../components/recommendations'),
+    BarChart: () => import('../components/barChart'),
     BasicButton,
-    UsefulInfo,
-    LineChart,
-    precautionaryMeasures,
-    AddIsolationInfo,
+    UsefulInfo: () => import('../components/usefulInfo'),
+    LineChart: () => import('../components/lineChart'),
+    precautionaryMeasures: () => import('../components/precautionaryMeasures'),
+    AddIsolationInfo: () => import('../components/addIsolationInfo'),
     DaysProgress,
     BasicCard
   },
@@ -247,6 +262,7 @@ export default {
       })
   },
   computed: {
+    ...mapGetters('language', ['getAppLanguage']),
     daysDifference () {
       return differenceInDays(parseISO(this.localData.endDate), parseISO(this.localData.startDate)) || 0
     },
@@ -274,15 +290,19 @@ export default {
     }
   },
   methods: {
-    saveData (payload) {
+    saveData (payload, shouldRefresh = false) {
       this.saveDataToLocalStorage(payload)
         .then(() => {
-          this.getDataFromLocalStorage()
-            .then(res => {
-              this.personalInfoLoading = false
-              this.localData = res
-              this.getChartData()
-            })
+          if (shouldRefresh) {
+            location.reload()
+          } else {
+            this.getDataFromLocalStorage()
+              .then(res => {
+                this.personalInfoLoading = false
+                this.localData = res
+                this.getChartData()
+              })
+          }
         })
         .catch((e) => {
           // console.log(e)
@@ -294,9 +314,11 @@ export default {
           this.chartData.labels = Object.keys(data.timeline.cases).slice(0 - this.timeSpan)
           this.chartData.datasets[0].data = Object.values(data.timeline.cases).slice(0 - this.timeSpan)
           this.chartData.datasets[1].data = Object.values(data.timeline.deaths).slice(0 - this.timeSpan)
+          this.chartData.datasets[2].data = Object.values(data.timeline.recovered).slice(0 - this.timeSpan)
 
           this.latestConfirmed = Object.values(data.timeline.cases)[Object.values(data.timeline.cases).length - 1] || 0
           this.latestDeaths = Object.values(data.timeline.deaths)[Object.values(data.timeline.deaths).length - 1] || 0
+          this.latestRecovered = Object.values(data.timeline.recovered)[Object.values(data.timeline.recovered).length - 1] || 0
           this.latestUpdate = Object.keys(data.timeline.cases)[Object.keys(data.timeline.cases).length - 1] || '-'
           resolve()
         } else {
@@ -438,6 +460,11 @@ export default {
     .deaths {
       font-weight: bold;
       color: $danger;
+    }
+
+    .recovered {
+      font-weight: bold;
+      color: #48b559;
     }
   }
 </style>

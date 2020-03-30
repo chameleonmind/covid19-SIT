@@ -9,7 +9,8 @@ import NotificationPlugin from './plugins/notification'
 import MessagePlugin from './plugins/message'
 import Meta from 'vue-meta'
 
-require('./assets/css/main.scss')
+Vue.prototype.$appName = 'Covid-19 Self-Isolation Tracker'
+Vue.prototype.$shortAppName = 'Covid-19 SIT'
 
 Vue.directive('tooltip', VTooltip)
 

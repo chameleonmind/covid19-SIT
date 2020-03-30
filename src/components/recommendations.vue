@@ -11,17 +11,14 @@
 </template>
 <script>
 import recommendations from '../dataSource/recommendations'
+import { mapGetters } from 'vuex'
 
 export default {
   name: 'recommendations',
-  data () {
-    return {
-      language: 'sr'
-    }
-  },
   computed: {
+    ...mapGetters('language', ['getAppLanguage']),
     recommendedMeasures () {
-      return recommendations[this.language]
+      return recommendations[this.getAppLanguage]
     }
   }
 }

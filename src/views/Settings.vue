@@ -1,21 +1,42 @@
 <template>
   <div class="settings">
-    <template v-if="localData && Object.keys(localData).length">
-      <expandable title="Izmeni podatke" :expanded="detailsExpand" @toggle="toggleElement('detailsExpand')">
+    <loading :visible="loadingData"/>
+    <div class="container">
+      <expandable :title="$t('translations.settings.appSettings')" :expanded="appSettingsExpand" @toggle="toggleElement('appSettingsExpand')">
         <div class="row">
-          <div class="col-md-2">
-            <add-isolation-info :centered="false" :passed-data="localData" @save-data="saveData"></add-isolation-info>
+          <div class="col">
+            <v-select class="custom-dropdown"
+                      :reduce="text => text.value"
+                      label="text"
+                      :clearable="false"
+                      :searchable="false"
+                      :options="languageOptions"
+                      v-model="selectedLanguage"/>
+            <basic-button color="primary"
+                          rounded
+                          class="mt-3"
+                          :disabled="loadingData"
+                          :loading="loadingData"
+                          @click="setLanguage">
+              {{$t('translations.common.save')}}
+            </basic-button>
           </div>
         </div>
       </expandable>
-      <expandable title="Obriši sve podatke" :expanded="deleteExpand" @toggle="toggleElement('deleteExpand')">
-        <h4>Obriši sve sačuvane podatke</h4>
-        <basic-button color="danger" rounded @click="confirmDataDelete">
-          Obriši
-        </basic-button>
-      </expandable>
-    </template>
-    <h3 v-else class="p-3 m-0 text-center">Nema dostupnih podešavanja.</h3>
+      <template v-if="localData && Object.keys(localData).length">
+        <expandable :title="$t('translations.settings.changeDataTitle')" :expanded="detailsExpand" @toggle="toggleElement('detailsExpand')">
+          <div class="row">
+            <add-isolation-info :centered="false" :passed-data="localData" @save-data="saveData"></add-isolation-info>
+          </div>
+        </expandable>
+        <expandable :title="$t('translations.settings.deleteData.title')" :expanded="deleteExpand" @toggle="toggleElement('deleteExpand')">
+          <h4>{{$t('translations.settings.deleteData.subtitle')}}</h4>
+          <basic-button color="danger" rounded @click="confirmDataDelete">
+            {{$t('translations.settings.deleteData.deleteButton')}}
+          </basic-button>
+        </expandable>
+      </template>
+    </div>
   </div>
 </template>
 
@@ -24,20 +45,41 @@ import Expandable from '../components/common/expandable'
 import BasicButton from '../components/common/basicButton'
 import localStorageMixin from '../mixins/localStorage'
 import AddIsolationInfo from '../components/addIsolationInfo'
+import vSelect from 'vue-select'
+import { mapGetters, mapActions } from 'vuex'
+import Loading from '../components/common/loading'
 
 export default {
   name: 'Settings',
   components: {
+    Loading,
     AddIsolationInfo,
     BasicButton,
-    Expandable
+    Expandable,
+    vSelect
   },
   mixins: [localStorageMixin],
+  computed: {
+    ...mapGetters('language', ['getAppLanguage'])
+  },
   data () {
     return {
+      loadingData: false,
       localData: {},
       deleteExpand: false,
       detailsExpand: false,
+      appSettingsExpand: true,
+      selectedLanguage: 'en',
+      languageOptions: [
+        {
+          value: 'sr',
+          text: 'Srpski'
+        },
+        {
+          value: 'en',
+          text: 'English'
+        }
+      ],
       error: false
     }
   },
@@ -46,18 +88,20 @@ export default {
       .then(res => {
         this.localData = res
       })
+    this.selectedLanguage = this.getAppLanguage
   },
   methods: {
+    ...mapActions('language', ['switchAppLanguage']),
     toggleElement (elem) {
       this[elem] = !this[elem]
     },
     confirmDataDelete () {
       this.$message.show({
-        heading: 'Please confirm',
-        text: 'Da li ste sigurni da želite da obrišete sve sačuvane podatke?',
+        heading: this.$t('translations.settings.deleteConfirmation.title'),
+        text: this.$t('translations.settings.deleteConfirmation.description'),
         type: 'confirmation',
-        okText: 'Obriši',
-        cancelText: 'Otkaži',
+        okText: this.$t('translations.common.delete'),
+        cancelText: this.$t('translations.common.cancel'),
         onConfirm: () => this.performDelete()
       })
     },
@@ -66,7 +110,7 @@ export default {
       localStorage.removeItem('sitChart')
 
       this.$notification.show({
-        text: 'Podaci uspešno obrisani.',
+        text: this.$t('translations.settings.deleteSuccess'),
         type: 'success',
         duration: 3000
       })
@@ -82,11 +126,28 @@ export default {
       this.saveDataToLocalStorage(data)
         .then(() => {
           this.$notification.show({
-            text: 'Podaci uspešno sačuvani.',
+            text: this.$t('translations.settings.saveSuccess'),
             type: 'success',
             duration: 3000
           })
         })
+    },
+    setLanguage () {
+      // selectedLanguage
+      this.loadingData = true
+      setTimeout(() => {
+        this.switchAppLanguage(this.selectedLanguage)
+          .then(() => {
+            location.reload()
+            this.loadingData = false
+          })
+          .catch(() => {
+            this.loadingData = false
+          })
+          .finally(() => {
+            this.loadingData = false
+          })
+      }, 500)
     }
   }
 }
@@ -97,6 +158,16 @@ export default {
     padding: 1rem;
     background: #fff;
     min-height: calc(100vh - 4.5rem);
+
+    .container {
+      width: 100%;
+      max-width: 480px;
+    }
+
+    .language-select {
+      width: 100%;
+      max-width: 480px;
+    }
 
     .change-info {
       padding: 1rem;

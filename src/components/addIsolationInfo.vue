@@ -6,7 +6,8 @@
                      name="name"
                      floating-label
                      @input="clearError"
-                     label="Ime" v-model="sitData.name"/>
+                     :label="$t('translations.personalInfo.name')"
+                     v-model="sitData.name"/>
       </div>
     </div>
     <div class="row">
@@ -19,10 +20,10 @@
                       @input="clearError"
                       clear-button>
             <div slot="beforeCalendarHeader" class="datepicker-header">
-              Odaberi početak izolacije
+              {{$t('translations.personalInfo.startPickerDescription')}}
             </div>
           </datepicker>
-          <label class="floating">Početak izolacije</label>
+          <label class="floating">{{$t('translations.personalInfo.isolationStart')}}</label>
         </div>
       </div>
     </div>
@@ -33,21 +34,21 @@
                       class="m-1"
                       :disabled="!sitData.startDate"
                       @click="setDuration('14')">
-          14 dana
+          {{$t('translations.personalInfo.14days')}}
         </basic-button>
         <basic-button :color="duration === '28' ? 'primary' : 'outline'"
                       size="small"
                       class="m-1"
                       :disabled="!sitData.startDate"
                       @click="setDuration('28')">
-          28 dana
+          {{$t('translations.personalInfo.28days')}}
         </basic-button>
         <basic-button :color="duration === 'custom' ? 'primary' : 'outline'"
                       size="small"
                       class="m-1"
                       :disabled="!sitData.startDate"
                       @click="setDuration('custom')">
-          Odabraću iz kalendara
+          {{$t('translations.personalInfo.customEndDate')}}
         </basic-button>
       </div>
     </div>
@@ -62,28 +63,40 @@
                         @input="clearError"
                         clear-button>
               <div slot="beforeCalendarHeader" class="datepicker-header">
-                Odaberi datum kraja izolacije
+                {{$t('translations.personalInfo.endPickerDescription')}}
               </div>
             </datepicker>
-            <label class="floating">Kraj izolacije</label>
+            <label class="floating">{{$t('translations.personalInfo.isolationEnd')}}</label>
           </div>
         </div>
       </div>
     </transition>
+    <div class="row my-3">
+      <div class="col">
+        <v-select class="custom-dropdown"
+                  :reduce="text => text.value"
+                  label="text"
+                  placeholder="Language"
+                  :clearable="false"
+                  :searchable="false"
+                  :options="languageOptions"
+                  v-model="selectedLanguage"/>
+      </div>
+    </div>
     <div class="row">
       <div class="col">
         <p class="info p-2" :class="{'text-center px-3' : $props.centered}">
-          Podaci koje ovde unosite se čuvaju samo na ovom uređaju i ne šalju se ni na jedan servis.
+          {{$t('translations.personalInfo.info')}}
         </p>
       </div>
     </div>
     <div class="mt-3" :class="{'text-center' : $props.centered}">
       <basic-button color="primary" rounded @click="saveData" modifier="prevent">
-        Sačuvaj
+        {{$t('translations.common.save')}}
       </basic-button>
     </div>
     <transition name="fade" mode="out-in">
-      <p class="error" v-if="error">Molim popunite sve podatke</p>
+      <p class="error" v-if="error">{{$t('translations.personalInfo.error')}}</p>
     </transition>
   </div>
 </template>
@@ -92,6 +105,8 @@
 import BasicInput from './common/basicInput'
 import Datepicker from 'vuejs-datepicker'
 import BasicButton from './common/basicButton'
+import vSelect from 'vue-select'
+import { mapGetters, mapActions } from 'vuex'
 
 export default {
   name: 'addIsolationInfo',
@@ -103,13 +118,25 @@ export default {
         endDate: ''
       },
       error: false,
-      duration: ''
+      duration: '',
+      selectedLanguage: '',
+      languageOptions: [
+        {
+          value: 'sr',
+          text: 'Srpski'
+        },
+        {
+          value: 'en',
+          text: 'English'
+        }
+      ]
     }
   },
   components: {
     BasicButton,
     BasicInput,
-    Datepicker
+    Datepicker,
+    vSelect
   },
   props: {
     passedData: {
@@ -130,6 +157,7 @@ export default {
     }
   },
   computed: {
+    ...mapGetters('language', ['getAppLanguage']),
     calendarDisabledDatesStart () {
       const today = new Date()
       today.setDate(today.getDate())
@@ -148,7 +176,9 @@ export default {
   methods: {
     saveData () {
       if (this.sitData.name && this.sitData.startDate && this.sitData.endDate) {
-        this.$emit('save-data', this.sitData)
+        const shouldRefresh = this.selectedLanguage !== this.getAppLanguage
+        this.switchAppLanguage(this.selectedLanguage)
+        this.$emit('save-data', this.sitData, shouldRefresh)
       } else {
         this.error = true
       }
@@ -166,12 +196,13 @@ export default {
         }
       } else {
         this.$notification.show({
-          text: 'Početni datum nije odabran',
+          text: this.$t('translations.personalInfo.startDateError'),
           type: 'error',
           duration: 3000
         })
       }
-    }
+    },
+    ...mapActions('language', ['switchAppLanguage'])
   }
 }
 </script>

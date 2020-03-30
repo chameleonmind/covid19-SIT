@@ -12,9 +12,9 @@
         :stroke-dashoffset="calculatedRemainingDays"></path>
     </svg>
     <div class="overlay">
-      <p>Preostalo</p>
+      <p>{{$t('translations.home.daysProgress.remainingTime')}}</p>
       <h2>{{remainingDays}}</h2>
-      <p>{{maxDays - daysPassed !== 1 ? 'dana' : 'dan'}}</p>
+      <p>{{maxDays - daysPassed !== 1 ? $t('translations.home.daysProgress.days') : $t('translations.home.daysProgress.day')}}</p>
     </div>
   </div>
 </template>

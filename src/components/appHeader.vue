@@ -3,7 +3,7 @@
     <basic-button color="text" class="p-0 ml-3 font-s-md" @click="toggleSidebar">
       <i class="icon-menu"></i>
     </basic-button>
-    <h1>Covid-19 Self-Isolation Tracker</h1>
+    <h1>{{$appName}}</h1>
     <div class="share-menu">
       <basic-dropdown :chevron-visible="false"
                       class="color-dropdown">
