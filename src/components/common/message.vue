@@ -11,11 +11,13 @@
         <div class="confirmation__actions">
           <basic-button :color="type === 'confirmation' ? 'text' : 'primary'"
                         class="mr-3"
+                        rounded
                         modifier="stop" @click="hideConfirmation">
             {{type === 'confirmation' ? cancelText : okText}}
           </basic-button>
           <basic-button color="primary"
                         modifier="stop"
+                        rounded
                         v-if="type === 'confirmation'"
                         @click="confirmAction">
             {{okText}}

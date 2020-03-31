@@ -5,16 +5,14 @@
 </template>
 <script>
 import aboutDescription from '../dataSource/aboutDescription'
+import { mapGetters } from 'vuex'
+
 export default {
   name: 'About',
-  data () {
-    return {
-      language: 'sr'
-    }
-  },
   computed: {
+    ...mapGetters('language', ['getAppLanguage']),
     aboutText () {
-      return aboutDescription[this.language]
+      return aboutDescription[this.getAppLanguage]
     }
   }
 }

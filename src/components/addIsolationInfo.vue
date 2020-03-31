@@ -29,18 +29,18 @@
     </div>
     <div class="row">
       <div class="col mt-3" :class="{'text-center' : $props.centered}">
-        <basic-button :color="duration === '14' ? 'primary' : 'outline'"
+        <basic-button :color="duration === '13' ? 'primary' : 'outline'"
                       size="small"
                       class="m-1"
                       :disabled="!sitData.startDate"
-                      @click="setDuration('14')">
+                      @click="setDuration('13')">
           {{$t('translations.personalInfo.14days')}}
         </basic-button>
-        <basic-button :color="duration === '28' ? 'primary' : 'outline'"
+        <basic-button :color="duration === '27' ? 'primary' : 'outline'"
                       size="small"
                       class="m-1"
                       :disabled="!sitData.startDate"
-                      @click="setDuration('28')">
+                      @click="setDuration('27')">
           {{$t('translations.personalInfo.28days')}}
         </basic-button>
         <basic-button :color="duration === 'custom' ? 'primary' : 'outline'"
@@ -71,7 +71,7 @@
         </div>
       </div>
     </transition>
-    <div class="row my-3">
+    <div class="row my-3" v-if="$props.showLanguage">
       <div class="col">
         <v-select class="custom-dropdown"
                   :reduce="text => text.value"
@@ -81,6 +81,16 @@
                   :searchable="false"
                   :options="languageOptions"
                   v-model="selectedLanguage"/>
+      </div>
+    </div>
+    <div class="row my-3" v-if="$props.showCountry">
+      <div class="col">
+        <v-select class="custom-dropdown"
+                  :placeholder="$t('translations.personalInfo.countryPlaceholder')"
+                  :clearable="true"
+                  :searchable="true"
+                  :options="listOfCountries"
+                  v-model="selectedCountry"/>
       </div>
     </div>
     <div class="row">
@@ -107,6 +117,7 @@ import Datepicker from 'vuejs-datepicker'
 import BasicButton from './common/basicButton'
 import vSelect from 'vue-select'
 import { mapGetters, mapActions } from 'vuex'
+import countryList from '../dataSource/countryList'
 
 export default {
   name: 'addIsolationInfo',
@@ -120,6 +131,7 @@ export default {
       error: false,
       duration: '',
       selectedLanguage: '',
+      selectedCountry: '',
       languageOptions: [
         {
           value: 'sr',
@@ -149,15 +161,25 @@ export default {
     centered: {
       type: Boolean,
       default: true
+    },
+    showLanguage: {
+      type: Boolean,
+      default: true
+    },
+    showCountry: {
+      default: true
     }
   },
   mounted () {
     if (Object.keys(this.$props.passedData).length) {
       this.sitData = this.$props.passedData
     }
+    this.selectedLanguage = this.getAppLanguage
+    this.selectedCountry = this.getSelectedCountry
   },
   computed: {
     ...mapGetters('language', ['getAppLanguage']),
+    ...mapGetters('country', ['getSelectedCountry']),
     calendarDisabledDatesStart () {
       const today = new Date()
       today.setDate(today.getDate())
@@ -171,13 +193,29 @@ export default {
       return {
         to: today
       }
+    },
+    listOfCountries () {
+      return countryList
     }
   },
   methods: {
+    setToBeginning (value) {
+      const newDate = new Date(value)
+      newDate.setHours(6, 0, 0, 0)
+      return newDate
+    },
+    setToEnd (value) {
+      const newDate = new Date(value)
+      newDate.setHours(6, 0, 0, 0)
+      return newDate
+    },
     saveData () {
       if (this.sitData.name && this.sitData.startDate && this.sitData.endDate) {
+        this.sitData.startDate = this.setToBeginning(this.sitData.startDate)
+        this.sitData.endDate = this.setToEnd(this.sitData.endDate)
         const shouldRefresh = this.selectedLanguage !== this.getAppLanguage
         this.switchAppLanguage(this.selectedLanguage)
+        this.switchCountrySelection(this.selectedCountry)
         this.$emit('save-data', this.sitData, shouldRefresh)
       } else {
         this.error = true
@@ -185,6 +223,7 @@ export default {
     },
     clearError () {
       this.error = false
+      console.log(this.sitData)
     },
     setDuration (duration) {
       if (this.sitData.startDate) {
@@ -193,6 +232,7 @@ export default {
         if (duration !== 'custom') {
           const newDate = startDate.setDate(startDate.getDate() + duration * 1)
           this.sitData.endDate = new Date(newDate)
+          this.setToEnd(this.sitData.endDate)
         }
       } else {
         this.$notification.show({
@@ -202,7 +242,8 @@ export default {
         })
       }
     },
-    ...mapActions('language', ['switchAppLanguage'])
+    ...mapActions('language', ['switchAppLanguage']),
+    ...mapActions('country', ['switchCountrySelection'])
   }
 }
 </script>

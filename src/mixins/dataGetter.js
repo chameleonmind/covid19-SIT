@@ -1,6 +1,10 @@
 import { differenceInMinutes } from 'date-fns/esm'
+import { mapGetters } from 'vuex'
 
 export default {
+  computed: {
+    ...mapGetters('country', ['getSelectedCountry'])
+  },
   methods: {
     getFromStorageWithTimestamp (key) {
       try {
@@ -19,6 +23,7 @@ export default {
         const now = new Date()
         const dataToSave = {
           timestamp: now.getTime(),
+          country: this.getSelectedCountry,
           data: data
         }
         // console.log(key, JSON.stringify(dataToSave))
@@ -60,6 +65,15 @@ export default {
                   duration: 3000
                 })
               }
+            })
+            .catch(e => {
+              reject(new Error(this.$t('translations.common.dataUnavailable')))
+
+              this.$notification.show({
+                text: this.$t('translations.common.dataError'),
+                type: 'danger',
+                duration: 5000
+              })
             })
         }
       })

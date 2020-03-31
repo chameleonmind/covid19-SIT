@@ -22,7 +22,11 @@ const messages = {
           elapsedTime: 'Proteklo:',
           remainingTime: 'Preostalo',
           days: 'dana',
-          day: 'dan'
+          day: 'dan',
+          daysMore: 'dana više',
+          dayMore: 'dan više',
+          lastDay: 'Poslednji dan',
+          still: 'Još '
         },
         usefulInfo: {
           title: 'Korisne informacije'
@@ -58,7 +62,9 @@ const messages = {
           description: 'Da li ste sigurni da želite da obrišete sve sačuvane podatke?'
         },
         deleteSuccess: 'Podaci uspešno izbrisani',
-        saveSuccess: 'Podaci uspešno sačuvani'
+        saveSuccess: 'Podaci uspešno sačuvani',
+        selectLanguage: 'Odaberite jezik',
+        chooseCountry: 'Odaberite zemlju'
       },
       personalInfo: {
         title: 'Podešavanja',
@@ -73,7 +79,8 @@ const messages = {
         info: 'Podaci koje ovde unosite se čuvaju samo na ovom uređaju i ne šalju se ni na jedan servis.',
         error: 'Morate popuniti sve podatke',
         languagePlaceholder: 'Odaberite jezik',
-        startDateError: 'Početni datum nije izabran'
+        startDateError: 'Početni datum nije izabran',
+        countryPlaceholder: 'Odaberite zemlju'
       },
       common: {
         source: 'Izvor',
@@ -84,7 +91,8 @@ const messages = {
         noNewData: 'Nema novih podataka',
         dataUnavailable: 'Nije moguće preuzeti podatke',
         newDataFetched: 'Preuzeti su najnoviji podaci',
-        dataError: 'Došlo je do greške prilikom preuzimanja podataka'
+        dataError: 'Došlo je do greške prilikom preuzimanja podataka',
+        noData: 'Nema podataka za odabranu zemlju'
       }
     }
   },
@@ -104,7 +112,12 @@ const messages = {
           end: 'End:',
           elapsedTime: 'Elapsed:',
           remainingTime: 'Remaining:',
-          days: 'days'
+          days: 'days',
+          day: 'day',
+          daysMore: 'days more',
+          dayMore: 'day more',
+          lastDay: 'Last day',
+          still: ''
         },
         usefulInfo: {
           title: 'Useful information'
@@ -140,7 +153,9 @@ const messages = {
           description: 'Are you sure you want to delete all saved data?'
         },
         deleteSuccess: 'Data successfully removed',
-        saveSuccess: 'Data saved successfully'
+        saveSuccess: 'Data saved successfully',
+        selectLanguage: 'Select language',
+        chooseCountry: 'Choose country'
       },
       personalInfo: {
         title: 'Personal info settings',
@@ -155,7 +170,8 @@ const messages = {
         info: 'The data you enter here will be save on this device only and will not be sent to any service.',
         error: 'You must fill all fields',
         languagePlaceholder: 'Select your language',
-        startDateError: 'Start date isn\'t selected'
+        startDateError: 'Start date isn\'t selected',
+        countryPlaceholder: 'Select a country'
       },
       common: {
         source: 'Source',
@@ -166,7 +182,8 @@ const messages = {
         noNewData: 'No new data available',
         dataUnavailable: 'Data unavailable',
         newDataFetched: 'New data fetched',
-        dataError: 'There has been an error trying to get data'
+        dataError: 'There has been an error trying to get data',
+        noData: 'There is no data for chosen country'
       }
     }
   }

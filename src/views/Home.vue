@@ -29,68 +29,73 @@
         </section>
         <section class="row">
           <div class="graph-data">
-            <basic-card :card-title="$t('translations.home.stats.title')" card-icon="icon-trending-up"
+            <basic-card :card-title="$t('translations.home.stats.title') + ' - ' + getSelectedCountry" card-icon="icon-trending-up"
                         :loading="chartLoading"
                         :loader-height="chartHeight+100+'px'">
-              <div class="row justify-space-between">
-                <div>
-                  <basic-button :color="chartType === 'line' ? 'secondary' : 'outline'"
+              <template v-if="chartData.datasets[0].data.length">
+                <div class="row justify-space-between">
+                  <div>
+                    <basic-button :color="chartType === 'line' ? 'secondary' : 'outline'"
+                                  size="xsm"
+                                  class="px-2"
+                                  @click="changeGraphType('line')"
+                                  v-tooltip="$t('translations.home.stats.lineGraph')">
+                      <i class="icon-trending-up"></i>
+                    </basic-button>
+                    <basic-button :color="chartType === 'bar' ? 'secondary' : 'outline'"
+                                  size="xsm"
+                                  class="px-2 ml-1"
+                                  @click="changeGraphType('bar')"
+                                  v-tooltip="$t('translations.home.stats.barChart')">
+                      <i class="icon-bar-chart"></i>
+                    </basic-button>
+                  </div>
+                  <div class="stats">
+                    <p class="m-0">{{$t('translations.home.stats.lastChangeDate')}} <span class="date">{{latestUpdate | formatAmericanDate}}</span>
+                    </p>
+                    <p class="m-0">{{$t('translations.home.stats.latestData')}} <span class="confirmed">{{latestConfirmed}}</span>/<span
+                      class="deaths">{{latestDeaths}}</span>/<span class="recovered">{{latestRecovered}}</span></p>
+                  </div>
+                </div>
+                <transition name="fade" mode="out-in">
+                  <line-chart v-if="chartType === 'line'" :chart-data="chartData" :options="chartOptions"
+                              :height="chartHeight" ref="lineChartRef"></line-chart>
+                  <bar-chart v-else-if="chartType === 'bar'" :chart-data="chartData" :options="chartOptions"
+                             :height="chartHeight" ref="barChartRef"></bar-chart>
+                </transition>
+                <div class="text-center">
+                  <basic-button :color="timeSpan === 60 ? 'secondary' : 'outline'"
                                 size="xsm"
-                                class="px-2"
-                                @click="changeGraphType('line')"
-                                v-tooltip="$t('translations.home.stats.lineGraph')">
-                    <i class="icon-trending-up"></i>
+                                class="m-1 px-2"
+                                rounded
+                                @click="changeTimeSpan(60)">
+                    {{$t('translations.home.stats.60days')}}
                   </basic-button>
-                  <basic-button :color="chartType === 'bar' ? 'secondary' : 'outline'"
+                  <basic-button :color="timeSpan === 30 ? 'secondary' : 'outline'"
                                 size="xsm"
-                                class="px-2 ml-1"
-                                @click="changeGraphType('bar')"
-                                v-tooltip="$t('translations.home.stats.barChart')">
-                    <i class="icon-bar-chart"></i>
+                                class="m-1 px-2"
+                                rounded
+                                @click="changeTimeSpan(30)">
+                    {{$t('translations.home.stats.30days')}}
+                  </basic-button>
+                  <basic-button :color="timeSpan === 14 ? 'secondary' : 'outline'"
+                                size="xsm"
+                                class="m-1 px-2"
+                                rounded
+                                @click="changeTimeSpan(14)">
+                    {{$t('translations.home.stats.14days')}}
+                  </basic-button>
+                  <basic-button :color="timeSpan === 7 ? 'secondary' : 'outline'"
+                                size="xsm"
+                                class="m-1 px-2"
+                                rounded
+                                @click="changeTimeSpan(7)">
+                    {{$t('translations.home.stats.7days')}}
                   </basic-button>
                 </div>
-                <div class="stats">
-                  <p class="m-0">{{$t('translations.home.stats.lastChangeDate')}} <span class="date">{{latestUpdate | formatAmericanDate}}</span>
-                  </p>
-                  <p class="m-0">{{$t('translations.home.stats.latestData')}} <span class="confirmed">{{latestConfirmed}}</span>/<span
-                    class="deaths">{{latestDeaths}}</span>/<span class="recovered">{{latestRecovered}}</span></p>
-                </div>
-              </div>
-              <transition name="fade" mode="out-in">
-                <line-chart v-if="chartType === 'line'" :chart-data="chartData" :options="chartOptions"
-                            :height="chartHeight" ref="lineChartRef"></line-chart>
-                <bar-chart v-else-if="chartType === 'bar'" :chart-data="chartData" :options="chartOptions"
-                           :height="chartHeight" ref="barChartRef"></bar-chart>
-              </transition>
-              <div class="text-center">
-                <basic-button :color="timeSpan === 60 ? 'secondary' : 'outline'"
-                              size="xsm"
-                              class="m-1 px-2"
-                              rounded
-                              @click="changeTimeSpan(60)">
-                  {{$t('translations.home.stats.60days')}}
-                </basic-button>
-                <basic-button :color="timeSpan === 30 ? 'secondary' : 'outline'"
-                              size="xsm"
-                              class="m-1 px-2"
-                              rounded
-                              @click="changeTimeSpan(30)">
-                  {{$t('translations.home.stats.30days')}}
-                </basic-button>
-                <basic-button :color="timeSpan === 14 ? 'secondary' : 'outline'"
-                              size="xsm"
-                              class="m-1 px-2"
-                              rounded
-                              @click="changeTimeSpan(14)">
-                  {{$t('translations.home.stats.14days')}}
-                </basic-button>
-                <basic-button :color="timeSpan === 7 ? 'secondary' : 'outline'"
-                              size="xsm"
-                              class="m-1 px-2"
-                              rounded
-                              @click="changeTimeSpan(7)">
-                  {{$t('translations.home.stats.7days')}}
-                </basic-button>
+              </template>
+              <div class="no-chart-data" v-else>
+                <h4 class="m-0">{{$t('translations.common.noData')}}</h4>
               </div>
               <p class="mb-0 mt-1" slot="footer">{{$t('translations.common.source')}}: <a
                 href="https://corona.lmao.ninja" target="_blank">https://corona.lmao.ninja</a>
@@ -263,8 +268,9 @@ export default {
   },
   computed: {
     ...mapGetters('language', ['getAppLanguage']),
+    ...mapGetters('country', ['getSelectedCountry']),
     daysDifference () {
-      return differenceInDays(parseISO(this.localData.endDate), parseISO(this.localData.startDate)) || 0
+      return differenceInDays(parseISO(this.localData.endDate), parseISO(this.localData.startDate)) + 1 || 0
     },
     diffToToday () {
       const today = new Date()
@@ -273,17 +279,17 @@ export default {
     startDayDiffToToday () {
       const today = new Date()
       const diff = differenceInDays(today, parseISO(this.localData.startDate))
-      return diff !== 1 ? diff + ' dana' : diff + ' dan'
+      return diff !== 1 ? diff + ` ${this.$t('translations.home.daysProgress.days')}` : diff + ` ${this.$t('translations.home.daysProgress.days')}`
     },
     endDayDiffToToday () {
       const today = new Date()
       const diff = differenceInDays(parseISO(this.localData.endDate), today)
       if (diff > 0) {
-        return 'Još ' + diff + (diff !== 1 ? ' dana' : 'dan')
+        return this.$t('translations.home.daysProgress.still') + diff + (diff !== 1 ? ` ${this.$t('translations.home.daysProgress.days')}` : ` ${this.$t('translations.home.daysProgress.days')}`)
       } else if (diff === 0) {
-        return 'Poslednji dan'
+        return this.$t('translations.home.daysProgress.days')
       }
-      return (diff * -1) + (diff !== 1 ? ' dana više' : 'dan više')
+      return (diff * -1) + (diff !== 1 ? ` ${this.$t('translations.home.daysProgress.daysMore')} ` : ` ${this.$t('translations.home.daysProgress.dayMore')}`)
     },
     recommendedMeasures () {
       return measures
@@ -310,7 +316,7 @@ export default {
     },
     transformDataForChart (data) {
       return new Promise((resolve, reject) => {
-        if (data.timeline.cases) {
+        if (data.timeline && data.timeline.cases) {
           this.chartData.labels = Object.keys(data.timeline.cases).slice(0 - this.timeSpan)
           this.chartData.datasets[0].data = Object.values(data.timeline.cases).slice(0 - this.timeSpan)
           this.chartData.datasets[1].data = Object.values(data.timeline.deaths).slice(0 - this.timeSpan)
@@ -322,7 +328,7 @@ export default {
           this.latestUpdate = Object.keys(data.timeline.cases)[Object.keys(data.timeline.cases).length - 1] || '-'
           resolve()
         } else {
-          reject(new Error('Could not read data'))
+          reject(new Error(this.$t('translations.common.dataUnavailable')))
         }
       })
     },
@@ -348,7 +354,7 @@ export default {
     },
     getChartData () {
       this.chartLoading = true
-      this.getData('sitChart', 'https://corona.lmao.ninja/v2/historical/Serbia', 720)
+      this.getData('sitChart', `https://corona.lmao.ninja/v2/historical/${this.getSelectedCountry}`, 720)
         .then(res => {
           this.transformDataForChart(res)
             .then(() => {
@@ -360,6 +366,9 @@ export default {
                 if (this.$refs.barChartRef) this.$refs.barChartRef.refreshChart()
               })
             })
+        })
+        .catch(e => {
+          this.chartLoading = false
         })
     }
   }
@@ -466,5 +475,11 @@ export default {
       font-weight: bold;
       color: #48b559;
     }
+  }
+
+  .no-chart-data {
+    padding: 3rem 0;
+    text-align: center;
+    color: $text-alt2;
   }
 </style>

@@ -2,34 +2,49 @@
   <div class="settings">
     <loading :visible="loadingData"/>
     <div class="container">
-      <expandable :title="$t('translations.settings.appSettings')" :expanded="appSettingsExpand" @toggle="toggleElement('appSettingsExpand')">
+      <expandable :title="$t('translations.settings.appSettings')" :expanded="appSettingsExpand"
+                  @toggle="toggleElement('appSettingsExpand')">
         <div class="row">
           <div class="col">
+            <label for="language">{{$t('translations.settings.selectLanguage')}}</label>
             <v-select class="custom-dropdown"
                       :reduce="text => text.value"
                       label="text"
+                      id="language"
                       :clearable="false"
                       :searchable="false"
                       :options="languageOptions"
                       v-model="selectedLanguage"/>
+            <label for="country" class="mt-3">{{$t('translations.settings.chooseCountry')}}</label>
+            <v-select class="custom-dropdown"
+                      :placeholder="$t('translations.personalInfo.countryPlaceholder')"
+                      id="country"
+                      :clearable="true"
+                      :searchable="true"
+                      :options="listOfCountries"
+                      v-model="selectedCountry"/>
             <basic-button color="primary"
                           rounded
                           class="mt-3"
                           :disabled="loadingData"
                           :loading="loadingData"
-                          @click="setLanguage">
+                          @click="setLanguageAndCountry">
               {{$t('translations.common.save')}}
             </basic-button>
           </div>
         </div>
       </expandable>
       <template v-if="localData && Object.keys(localData).length">
-        <expandable :title="$t('translations.settings.changeDataTitle')" :expanded="detailsExpand" @toggle="toggleElement('detailsExpand')">
+        <expandable :title="$t('translations.settings.changeDataTitle')"
+                    :expanded="detailsExpand"
+                    ref="detailsExpandRef"
+                    @toggle="toggleElement('detailsExpand')">
           <div class="row">
-            <add-isolation-info :centered="false" :passed-data="localData" @save-data="saveData"></add-isolation-info>
+            <add-isolation-info :centered="false" :passed-data="localData" :show-country="false" :show-language="false" @save-data="saveData"></add-isolation-info>
           </div>
         </expandable>
-        <expandable :title="$t('translations.settings.deleteData.title')" :expanded="deleteExpand" @toggle="toggleElement('deleteExpand')">
+        <expandable :title="$t('translations.settings.deleteData.title')" :expanded="deleteExpand"
+                    @toggle="toggleElement('deleteExpand')">
           <h4>{{$t('translations.settings.deleteData.subtitle')}}</h4>
           <basic-button color="danger" rounded @click="confirmDataDelete">
             {{$t('translations.settings.deleteData.deleteButton')}}
@@ -48,6 +63,7 @@ import AddIsolationInfo from '../components/addIsolationInfo'
 import vSelect from 'vue-select'
 import { mapGetters, mapActions } from 'vuex'
 import Loading from '../components/common/loading'
+import countryList from '../dataSource/countryList'
 
 export default {
   name: 'Settings',
@@ -60,7 +76,11 @@ export default {
   },
   mixins: [localStorageMixin],
   computed: {
-    ...mapGetters('language', ['getAppLanguage'])
+    ...mapGetters('language', ['getAppLanguage']),
+    ...mapGetters('country', ['getSelectedCountry']),
+    listOfCountries () {
+      return countryList
+    }
   },
   data () {
     return {
@@ -70,6 +90,7 @@ export default {
       detailsExpand: false,
       appSettingsExpand: true,
       selectedLanguage: 'en',
+      selectedCountry: '',
       languageOptions: [
         {
           value: 'sr',
@@ -89,9 +110,11 @@ export default {
         this.localData = res
       })
     this.selectedLanguage = this.getAppLanguage
+    this.selectedCountry = this.getSelectedCountry
   },
   methods: {
     ...mapActions('language', ['switchAppLanguage']),
+    ...mapActions('country', ['switchCountrySelection']),
     toggleElement (elem) {
       this[elem] = !this[elem]
     },
@@ -125,6 +148,8 @@ export default {
     saveData (data) {
       this.saveDataToLocalStorage(data)
         .then(() => {
+          this.detailsExpand = false
+          this.$refs.detailsExpandRef.calculateElementHeight()
           this.$notification.show({
             text: this.$t('translations.settings.saveSuccess'),
             type: 'success',
@@ -132,12 +157,16 @@ export default {
           })
         })
     },
-    setLanguage () {
-      // selectedLanguage
+    setLanguageAndCountry () {
+      if (!this.selectedCountry) return
       this.loadingData = true
       setTimeout(() => {
         this.switchAppLanguage(this.selectedLanguage)
           .then(() => {
+            if (this.selectedCountry !== this.getSelectedCountry) {
+              this.switchCountrySelection(this.selectedCountry)
+              localStorage.removeItem('sitChart')
+            }
             location.reload()
             this.loadingData = false
           })
@@ -171,6 +200,13 @@ export default {
 
     .change-info {
       padding: 1rem;
+    }
+
+    label {
+      display: block;
+      padding-bottom: 0.25rem;
+      padding-left: 0.5rem;
+      font-weight: bold;
     }
   }
 </style>
