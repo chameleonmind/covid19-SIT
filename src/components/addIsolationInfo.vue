@@ -223,7 +223,6 @@ export default {
     },
     clearError () {
       this.error = false
-      console.log(this.sitData)
     },
     setDuration (duration) {
       if (this.sitData.startDate) {
