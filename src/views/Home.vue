@@ -1,142 +1,145 @@
 <template>
   <div class="home px-2 py-3">
-    <transition name="fade" mode="out-in">
-      <div v-if="localData && Object.keys(localData).length && !personalInfoLoading">
-        <section class="row">
-          <div class="personal-data">
-            <basic-card
-              :card-title="`${$t('translations.home.daysProgress.hello')} ${getAppLanguage === 'en' ? $options.filters.firstName(localData.name) : $options.filters.nameFilter(localData.name)}!`"
-              card-icon="icon-user"
-              :loading="personalInfoLoading">
-              <div class="days-progress">
-                <days-progress :days-passed="diffToToday" :max-days="daysDifference"/>
-                <div class="progress-info">
-                  <p>{{$t('translations.home.daysProgress.start')}} <span>{{localData.startDate | formatDate}}</span>
-                  </p>
-                  <p>{{$t('translations.home.daysProgress.end')}} <span>{{localData.endDate | formatDate}}</span></p>
-                  <p>{{$t('translations.home.daysProgress.elapsedTime')}}
-                    <span>{{daysDifference - diffToToday > 0 ? startDayDiffToToday : endDayDiffToToday}}</span>
-                  </p>
-                </div>
-              </div>
-            </basic-card>
-          </div>
-          <div class="useful-info">
-            <basic-card :card-title="$t('translations.home.usefulInfo.title')" card-icon="icon-info">
-              <useful-info/>
-            </basic-card>
-          </div>
-        </section>
-        <section class="row">
-          <div class="graph-data">
-            <basic-card :card-title="$t('translations.home.stats.title') + ' - ' + getSelectedCountry" card-icon="icon-trending-up"
-                        :loading="chartLoading"
-                        :loader-height="chartHeight+100+'px'">
-              <template v-if="chartData.datasets[0].data.length">
-                <div class="row justify-space-between">
-                  <div>
-                    <basic-button :color="chartType === 'line' ? 'secondary' : 'outline'"
-                                  size="xsm"
-                                  class="px-2"
-                                  @click="changeGraphType('line')"
-                                  v-tooltip="$t('translations.home.stats.lineGraph')">
-                      <i class="icon-trending-up"></i>
-                    </basic-button>
-                    <basic-button :color="chartType === 'bar' ? 'secondary' : 'outline'"
-                                  size="xsm"
-                                  class="px-2 ml-1"
-                                  @click="changeGraphType('bar')"
-                                  v-tooltip="$t('translations.home.stats.barChart')">
-                      <i class="icon-bar-chart"></i>
-                    </basic-button>
-                  </div>
-                  <div class="stats">
-                    <p class="m-0">{{$t('translations.home.stats.lastChangeDate')}} <span class="date">{{latestUpdate | formatAmericanDate}}</span>
+    <div :class="{'app-container': getAppearance === 'dashboard'}">
+      <transition name="fade" mode="out-in">
+        <div v-if="localData && Object.keys(localData).length && !personalInfoLoading">
+          <section class="row">
+            <div class="personal-data">
+              <basic-card
+                :card-title="`${$t('translations.home.daysProgress.hello')} ${getAppLanguage === 'en' ? $options.filters.firstName(localData.name) : $options.filters.nameFilter(localData.name)}!`"
+                card-icon="icon-user"
+                :loading="personalInfoLoading">
+                <div class="days-progress">
+                  <days-progress :days-passed="diffToToday" :max-days="daysDifference"/>
+                  <div class="progress-info">
+                    <p>{{$t('translations.home.daysProgress.start')}} <span>{{localData.startDate | formatDate}}</span>
                     </p>
-                    <p class="m-0">{{$t('translations.home.stats.latestData')}} <span class="confirmed">{{latestConfirmed}}</span>/<span
-                      class="deaths">{{latestDeaths}}</span>/<span class="recovered">{{latestRecovered}}</span></p>
+                    <p>{{$t('translations.home.daysProgress.end')}} <span>{{localData.endDate | formatDate}}</span></p>
+                    <p>{{$t('translations.home.daysProgress.elapsedTime')}}
+                      <span>{{daysDifference - diffToToday > 0 ? startDayDiffToToday : endDayDiffToToday}}</span>
+                    </p>
                   </div>
                 </div>
-                <transition name="fade" mode="out-in">
-                  <line-chart v-if="chartType === 'line'" :chart-data="chartData" :options="chartOptions"
-                              :height="chartHeight" ref="lineChartRef"></line-chart>
-                  <bar-chart v-else-if="chartType === 'bar'" :chart-data="chartData" :options="chartOptions"
-                             :height="chartHeight" ref="barChartRef"></bar-chart>
-                </transition>
-                <div class="text-center">
-                  <basic-button :color="timeSpan === 60 ? 'secondary' : 'outline'"
-                                size="xsm"
-                                class="m-1 px-2"
-                                rounded
-                                @click="changeTimeSpan(60)">
-                    {{$t('translations.home.stats.60days')}}
-                  </basic-button>
-                  <basic-button :color="timeSpan === 30 ? 'secondary' : 'outline'"
-                                size="xsm"
-                                class="m-1 px-2"
-                                rounded
-                                @click="changeTimeSpan(30)">
-                    {{$t('translations.home.stats.30days')}}
-                  </basic-button>
-                  <basic-button :color="timeSpan === 14 ? 'secondary' : 'outline'"
-                                size="xsm"
-                                class="m-1 px-2"
-                                rounded
-                                @click="changeTimeSpan(14)">
-                    {{$t('translations.home.stats.14days')}}
-                  </basic-button>
-                  <basic-button :color="timeSpan === 7 ? 'secondary' : 'outline'"
-                                size="xsm"
-                                class="m-1 px-2"
-                                rounded
-                                @click="changeTimeSpan(7)">
-                    {{$t('translations.home.stats.7days')}}
-                  </basic-button>
+              </basic-card>
+            </div>
+            <div class="useful-info">
+              <basic-card :card-title="$t('translations.home.usefulInfo.title')" card-icon="icon-info">
+                <useful-info/>
+              </basic-card>
+            </div>
+          </section>
+          <section class="row">
+            <div class="graph-data">
+              <basic-card :card-title="$t('translations.home.stats.title') + ' - ' + getSelectedCountry"
+                          card-icon="icon-trending-up"
+                          :loading="chartLoading"
+                          :loader-height="chartHeight+100+'px'">
+                <template v-if="chartData.datasets[0].data.length">
+                  <div class="row justify-space-between">
+                    <div>
+                      <basic-button :color="chartType === 'line' ? 'secondary' : 'outline'"
+                                    size="xsm"
+                                    class="px-2"
+                                    @click="changeGraphType('line')"
+                                    v-tooltip="$t('translations.home.stats.lineGraph')">
+                        <i class="icon-trending-up"></i>
+                      </basic-button>
+                      <basic-button :color="chartType === 'bar' ? 'secondary' : 'outline'"
+                                    size="xsm"
+                                    class="px-2 ml-1"
+                                    @click="changeGraphType('bar')"
+                                    v-tooltip="$t('translations.home.stats.barChart')">
+                        <i class="icon-bar-chart"></i>
+                      </basic-button>
+                    </div>
+                    <div class="stats">
+                      <p class="m-0">{{$t('translations.home.stats.lastChangeDate')}} <span class="date">{{latestUpdate | formatAmericanDate}}</span>
+                      </p>
+                      <p class="m-0">{{$t('translations.home.stats.latestData')}} <span class="confirmed">{{latestConfirmed}}</span>/<span
+                        class="deaths">{{latestDeaths}}</span>/<span class="recovered">{{latestRecovered}}</span></p>
+                    </div>
+                  </div>
+                  <transition name="fade" mode="out-in">
+                    <line-chart v-if="chartType === 'line'" :chart-data="chartData" :options="chartOptions"
+                                :height="chartHeight" ref="lineChartRef"></line-chart>
+                    <bar-chart v-else-if="chartType === 'bar'" :chart-data="chartData" :options="chartOptions"
+                               :height="chartHeight" ref="barChartRef"></bar-chart>
+                  </transition>
+                  <div class="text-center">
+                    <basic-button :color="timeSpan === 60 ? 'secondary' : 'outline'"
+                                  size="xsm"
+                                  class="m-1 px-2"
+                                  rounded
+                                  @click="changeTimeSpan(60)">
+                      {{$t('translations.home.stats.60days')}}
+                    </basic-button>
+                    <basic-button :color="timeSpan === 30 ? 'secondary' : 'outline'"
+                                  size="xsm"
+                                  class="m-1 px-2"
+                                  rounded
+                                  @click="changeTimeSpan(30)">
+                      {{$t('translations.home.stats.30days')}}
+                    </basic-button>
+                    <basic-button :color="timeSpan === 14 ? 'secondary' : 'outline'"
+                                  size="xsm"
+                                  class="m-1 px-2"
+                                  rounded
+                                  @click="changeTimeSpan(14)">
+                      {{$t('translations.home.stats.14days')}}
+                    </basic-button>
+                    <basic-button :color="timeSpan === 7 ? 'secondary' : 'outline'"
+                                  size="xsm"
+                                  class="m-1 px-2"
+                                  rounded
+                                  @click="changeTimeSpan(7)">
+                      {{$t('translations.home.stats.7days')}}
+                    </basic-button>
+                  </div>
+                </template>
+                <div class="no-chart-data" v-else>
+                  <h4 class="m-0">{{$t('translations.common.noData')}}</h4>
                 </div>
-              </template>
-              <div class="no-chart-data" v-else>
-                <h4 class="m-0">{{$t('translations.common.noData')}}</h4>
-              </div>
-              <p class="mb-0 mt-1" slot="footer">{{$t('translations.common.source')}}: <a
-                href="https://corona.lmao.ninja" target="_blank">https://corona.lmao.ninja</a>
-              </p>
-            </basic-card>
+                <p class="mb-0 mt-1" slot="footer">{{$t('translations.common.source')}}: <a
+                  href="https://corona.lmao.ninja" target="_blank">https://corona.lmao.ninja</a>
+                </p>
+              </basic-card>
+            </div>
+          </section>
+          <div class="row">
+            <div class="p-2">
+              <basic-card :card-title="$t('translations.home.measures.title')" card-icon="icon-alert-octagon">
+                <recommendations/>
+                <div slot="footer" class="row justify-space-between">
+                  <p class="m-0">{{$t('translations.common.source')}}: <a
+                    href="http://rs.n1info.com/Zdravlje/a576624/Pravilna-primena-mera-zastite-od-koronavirusa.html"
+                    target="_blank">N1</a></p>
+                  <p class="m-0">{{$t('translations.common.icons')}}: <a
+                    href="https://www.iconfinder.com/iconpai"
+                    target="_blank">iconpai</a></p>
+                </div>
+              </basic-card>
+            </div>
           </div>
-        </section>
-        <div class="row">
-          <div class="p-2">
-            <basic-card :card-title="$t('translations.home.measures.title')" card-icon="icon-alert-octagon">
-              <recommendations/>
-              <div slot="footer" class="row justify-space-between">
-                <p class="m-0">{{$t('translations.common.source')}}: <a
-                  href="http://rs.n1info.com/Zdravlje/a576624/Pravilna-primena-mera-zastite-od-koronavirusa.html"
+          <div class="row" v-if="getAppLanguage === 'sr'">
+            <div class="p-2">
+              <basic-card card-title="Na snazi je vanredno stanje" card-icon="icon-alert-triangle" icon-color="#d75044">
+                <precautionary-measures/>
+                <p slot="footer" class="m-0">{{$t('translations.common.source')}}: <a
+                  href="http://rs.n1info.com/Vesti/a578399/Mere-tokom-vanrednog-stanja.html"
                   target="_blank">N1</a></p>
-                <p class="m-0">{{$t('translations.common.icons')}}: <a
-                  href="https://www.iconfinder.com/iconpai"
-                  target="_blank">iconpai</a></p>
-              </div>
+              </basic-card>
+            </div>
+          </div>
+        </div>
+        <div class="row" v-else>
+          <div class="col col-md-2 col-no-grow ml-auto mr-auto mt-3">
+            <basic-card :card-title="$t('translations.personalInfo.title')" card-icon="icon-user">
+              <add-isolation-info @save-data="saveData"/>
             </basic-card>
           </div>
         </div>
-        <div class="row" v-if="getAppLanguage === 'sr'">
-          <div class="p-2">
-            <basic-card card-title="Na snazi je vanredno stanje" card-icon="icon-alert-triangle" icon-color="#d75044">
-              <precautionary-measures/>
-              <p slot="footer" class="m-0">{{$t('translations.common.source')}}: <a
-                href="http://rs.n1info.com/Vesti/a578399/Mere-tokom-vanrednog-stanja.html"
-                target="_blank">N1</a></p>
-            </basic-card>
-          </div>
-        </div>
-      </div>
-      <div class="row" v-else>
-        <div class="col col-md-2 col-no-grow ml-auto mr-auto mt-3">
-          <basic-card :card-title="$t('translations.personalInfo.title')" card-icon="icon-user">
-            <add-isolation-info @save-data="saveData"/>
-          </basic-card>
-        </div>
-      </div>
-    </transition>
+      </transition>
+    </div>
   </div>
 </template>
 
@@ -269,6 +272,7 @@ export default {
   computed: {
     ...mapGetters('language', ['getAppLanguage']),
     ...mapGetters('country', ['getSelectedCountry']),
+    ...mapGetters('appearance', ['getAppearance']),
     daysDifference () {
       return differenceInDays(parseISO(this.localData.endDate), parseISO(this.localData.startDate)) + 1 || 0
     },

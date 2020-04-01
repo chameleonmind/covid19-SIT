@@ -92,7 +92,12 @@ const messages = {
         dataUnavailable: 'Nije moguće preuzeti podatke',
         newDataFetched: 'Preuzeti su najnoviji podaci',
         dataError: 'Došlo je do greške prilikom preuzimanja podataka',
-        noData: 'Nema podataka za odabranu zemlju'
+        noData: 'Nema podataka za odabranu zemlju',
+        share: 'Podeli'
+      },
+      views: {
+        dashboardView: 'Dashboard prikaz',
+        classicView: 'Klasični prikaz'
       }
     }
   },
@@ -183,7 +188,12 @@ const messages = {
         dataUnavailable: 'Data unavailable',
         newDataFetched: 'New data fetched',
         dataError: 'There has been an error trying to get data',
-        noData: 'There is no data for chosen country'
+        noData: 'There is no data for chosen country',
+        share: 'Share'
+      },
+      views: {
+        dashboardView: 'Dashboard view',
+        classicView: 'Classic view'
       }
     }
   }

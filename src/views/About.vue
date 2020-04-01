@@ -1,5 +1,5 @@
 <template>
-  <div class="about">
+  <div class="about" :class="{'app-container': getAppearance !== 'dashboard'}">
     <div v-html="aboutText.text"></div>
   </div>
 </template>
@@ -11,6 +11,7 @@ export default {
   name: 'About',
   computed: {
     ...mapGetters('language', ['getAppLanguage']),
+    ...mapGetters('appearance', ['getAppearance']),
     aboutText () {
       return aboutDescription[this.getAppLanguage]
     }

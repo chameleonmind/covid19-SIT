@@ -44,8 +44,9 @@ export default {
           })
           resolve(storageSource.data)
         } else {
-          this.$http(url)
+          this.axios(url)
             .then(response => {
+              console.log(response)
               if (response.status >= 200 && response.status < 400) {
                 this.setInStorageWithTimestamp(key, response.data)
 

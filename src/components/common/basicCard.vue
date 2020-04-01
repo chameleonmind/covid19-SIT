@@ -77,6 +77,12 @@ export default {
       background-color: $primary;
     }
 
+    &.color-transparent {
+      background-color: transparent;
+      box-shadow: none;
+      border-radius: 0;
+    }
+
     .card-title {
       font-size: 1.25rem;
       margin: 0 0 1rem;

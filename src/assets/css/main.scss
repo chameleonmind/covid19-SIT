@@ -20,6 +20,10 @@ body, html {
   -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
 }
 
+.app-view {
+  background: $work-area;
+}
+
 .app-header {
   position: fixed;
   top: 0;
@@ -61,17 +65,34 @@ body, html {
   @media screen and (map_get($breakpoints, 'lg')) {
     padding-left: 220px;
   }
+
+  &.no-sidebar {
+    padding-left: 0 !important;
+  }
 }
 
 .app-footer {
   position: absolute;
   bottom: 0;
   right: 0;
+  width: 100%;
   display: inline-block;
+  text-align: right;
   background: $work-area;
   font-size: 0.75rem;
   color: $text-alt2;
   padding: 0.25rem;
+}
+
+.app-container {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+
+  &.narrow-container {
+    max-width: 720px;
+    margin: 0 auto;
+  }
 }
 
 a, a:visited {
@@ -399,5 +420,40 @@ ul li {
   .vs__clear,
   .vs__open-indicator {
     fill: $secondary;
+    cursor: pointer;
+  }
+
+  .vs__actions {
+    cursor: pointer;
+  }
+}
+
+.custom-radio {
+  position: relative;
+  display: inline-block;
+  width: 1.25rem;
+  height: 1.25rem;
+  border: 2px solid $primary;
+  border-radius: $full-radius;
+
+  .check {
+    display: inline-block;
+    position: absolute;
+    width: 0.5rem;
+    height: 0.5rem;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border-radius: $full-radius;
+    transition: background-color 0.2s;
+  }
+
+  input[type=radio] {
+    width: 0;
+    height: 0;
+
+    &:checked ~ .check {
+      background: $primary;
+    }
   }
 }

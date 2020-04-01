@@ -166,6 +166,7 @@ export default {
         transition: height 0.3s cubic-bezier(1, 0, 0, 1);
 
         .expandable__content {
+          padding: 2px 0;
           transition: opacity 0.3s 0.3s, overflow 0.1s;
           opacity: 1;
         }

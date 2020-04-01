@@ -1,20 +1,21 @@
 <template>
   <div id="app" class="app-view theme-default">
     <header class="app-header">
-      <app-header/>
+      <app-header  v-if="getAppearance === 'dashboard'"/>
+      <app-header-with-navigation v-else />
     </header>
-    <aside class="app-sidebar" :class="{'toggled': isSidebarToggled}">
+    <aside v-if="getAppearance === 'dashboard'" class="app-sidebar" :class="{'toggled': isSidebarToggled}">
       <app-sidebar/>
       <transition name="fade">
         <div class="backdrop" v-if="isSidebarToggled && isMobile" @click.stop="toggleSidebar"></div>
       </transition>
     </aside>
-    <main class="app-main" :class="{'toggled': isSidebarToggled}">
+    <main class="app-main" :class="{'toggled': isSidebarToggled, 'no-sidebar': getAppearance !== 'dashboard'}">
       <transition name="fade" mode="out-in">
         <router-view/>
       </transition>
       <footer class="app-footer">
-        v0.4.0 | Miloš Milošević, 2020.
+        {{getAppearance}}v0.5.0 | Miloš Milošević, 2020.
       </footer>
     </main>
     <notification/>
@@ -25,6 +26,7 @@
 import AppHeader from './components/appHeader'
 import AppSidebar from './components/appSidebar'
 import { mapGetters, mapActions } from 'vuex'
+import AppHeaderWithNavigation from './components/appHeaderWithNavigation'
 
 const ROOT_PATH = 'https://covid19-sit.netlify.com'
 
@@ -40,11 +42,13 @@ export default {
     window.addEventListener('resize', this.checkIfResolutionMobile)
   },
   components: {
+    AppHeaderWithNavigation,
     AppSidebar,
     AppHeader
   },
   computed: {
-    ...mapGetters('sidebar', ['isSidebarToggled'])
+    ...mapGetters('sidebar', ['isSidebarToggled']),
+    ...mapGetters('appearance', ['getAppearance'])
   },
   methods: {
     ...mapActions('sidebar', ['toggleSidebar']),

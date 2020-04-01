@@ -93,11 +93,16 @@
                   v-model="selectedCountry"/>
       </div>
     </div>
-    <div class="row">
+    <div class="row" v-if="$props.showCountry">
       <div class="col">
         <p class="info p-2" :class="{'text-center px-3' : $props.centered}">
           {{$t('translations.personalInfo.info')}}
         </p>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col">
+        <choose-appearance @style-change="setAppearance"/>
       </div>
     </div>
     <div class="mt-3" :class="{'text-center' : $props.centered}">
@@ -118,6 +123,7 @@ import BasicButton from './common/basicButton'
 import vSelect from 'vue-select'
 import { mapGetters, mapActions } from 'vuex'
 import countryList from '../dataSource/countryList'
+import ChooseAppearance from './chooseAppearance'
 
 export default {
   name: 'addIsolationInfo',
@@ -141,10 +147,12 @@ export default {
           value: 'en',
           text: 'English'
         }
-      ]
+      ],
+      selectedAppearance: ''
     }
   },
   components: {
+    ChooseAppearance,
     BasicButton,
     BasicInput,
     Datepicker,
@@ -216,6 +224,7 @@ export default {
         const shouldRefresh = this.selectedLanguage !== this.getAppLanguage
         this.switchAppLanguage(this.selectedLanguage)
         this.switchCountrySelection(this.selectedCountry)
+        this.switchAppearance(this.selectedAppearance)
         this.$emit('save-data', this.sitData, shouldRefresh)
       } else {
         this.error = true
@@ -241,8 +250,12 @@ export default {
         })
       }
     },
+    setAppearance (value) {
+      this.selectedAppearance = value
+    },
     ...mapActions('language', ['switchAppLanguage']),
-    ...mapActions('country', ['switchCountrySelection'])
+    ...mapActions('country', ['switchCountrySelection']),
+    ...mapActions('appearance', ['switchAppearance'])
   }
 }
 </script>
