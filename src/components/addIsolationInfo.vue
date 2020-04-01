@@ -93,14 +93,14 @@
                   v-model="selectedCountry"/>
       </div>
     </div>
-    <div class="row" v-if="$props.showCountry">
+    <div class="row">
       <div class="col">
         <p class="info p-2" :class="{'text-center px-3' : $props.centered}">
           {{$t('translations.personalInfo.info')}}
         </p>
       </div>
     </div>
-    <div class="row">
+    <div class="row" v-if="$props.showCountry">
       <div class="col">
         <choose-appearance @style-change="setAppearance"/>
       </div>
