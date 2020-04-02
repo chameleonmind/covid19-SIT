@@ -1,8 +1,11 @@
 <template>
   <div id="app" class="app-view theme-default">
+    <div class="ie-cover" v-if="isIE">
+      <p>Sorry, you are using an unsupported browser.</p>
+    </div>
     <header class="app-header">
-      <app-header  v-if="getAppearance === 'dashboard'"/>
-      <app-header-with-navigation v-else />
+      <app-header v-if="getAppearance === 'dashboard'"/>
+      <app-header-with-navigation v-else/>
     </header>
     <aside v-if="getAppearance === 'dashboard'" class="app-sidebar" :class="{'toggled': isSidebarToggled}">
       <app-sidebar/>
@@ -15,7 +18,7 @@
         <router-view/>
       </transition>
       <footer class="app-footer">
-        {{getAppearance}}v0.5.2 | Miloš Milošević, 2020.
+        v0.5.3 | Miloš Milošević, 2020.
       </footer>
     </main>
     <notification/>
@@ -34,11 +37,13 @@ export default {
   data () {
     return {
       isMobile: false,
+      isIE: false,
       logo: ROOT_PATH + require('./assets/cover.png')
     }
   },
   mounted () {
     this.checkIfResolutionMobile()
+    this.checkIfIE()
     window.addEventListener('resize', this.checkIfResolutionMobile)
   },
   components: {
@@ -54,6 +59,14 @@ export default {
     ...mapActions('sidebar', ['toggleSidebar']),
     checkIfResolutionMobile () {
       this.isMobile = window.innerWidth < 1024
+    },
+    checkIfIE () {
+      var ua = window.navigator.userAgent
+      var msie = ua.indexOf('MSIE ')
+
+      if (msie > 0 || !!navigator.userAgent.match(/Trident/)) { // If Internet Explorer, return version number {
+        this.isIE = true
+      }
     }
   },
   metaInfo () {
@@ -70,7 +83,7 @@ export default {
         },
         {
           name: 'twitter:description',
-          content: 'Pratite koliko dugo ste u izolaciji i vesti o dešavanjima u vezi sa Covid-19'
+          content: 'Keep track of how long you have been in isolation and stay informed about the news and events concerned with Covid-19'
         },
         {
           name: 'twitter:image',
@@ -95,7 +108,7 @@ export default {
         },
         {
           property: 'og:description',
-          content: 'Pratite koliko dugo ste u izolaciji i vesti o dešavanjima u vezi sa Covid-19'
+          content: 'Keep track of how long you have been in isolation and stay informed about the news and events concerned with Covid-19'
         },
         {
           property: 'og:url',
@@ -108,6 +121,16 @@ export default {
 </script>
 <style src="./assets/css/main.scss" lang="scss"></style>
 <style scoped lang="scss">
+  .ie-cover {
+    width: 100%;
+    height: 100vh;
+    position: fixed;
+    background-color: #242832;
+    color: #ececec;
+    z-index: 9999;
+    text-align: center;
+    padding-top: 25%;
+  }
   .backdrop {
     position: fixed;
     top: 0;

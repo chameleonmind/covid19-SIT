@@ -1,7 +1,9 @@
 <template>
   <div class="header-with-nav" :class="{'shadow' : userScrolled}">
     <div class="app-container">
-      <h1 class="app-title">{{$shortAppName}}</h1>
+      <router-link to="/" class="logo-link">
+        <h1 class="app-title">{{$shortAppName}}</h1>
+      </router-link>
       <div class="desktop-menu">
         <router-link v-for="item in menuItems"
                      :key="item.name"
@@ -181,6 +183,11 @@ export default {
       padding: 1rem;
     }
 
+    .logo-link {
+      color: $text-button;
+      text-decoration: none;
+      border: none;
+    }
     .app-title {
       font-size: 1rem;
       margin: 0;

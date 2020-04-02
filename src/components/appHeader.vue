@@ -44,7 +44,7 @@ export default {
         {
           name: 'Twitter',
           icon: 'icon-twitter',
-          url: 'https://twitter.com/intent/tweet?hashtags=Covid19&original_referer=https://covid19-sit.netlify.com/&text=Pratite%20koliko%20dugo%20ste%20u%20izolaciji%20i%20vesti%20o%20dešavanjima%20u%20vezi%20sa%20Covid-19&url=https://covid19-sit.netlify.com/#/&via=dr_nekorektan'
+          url: `https://twitter.com/intent/tweet?hashtags=Covid19&original_referer=https://covid19-sit.netlify.com/&text=${this.$t('translations.share.twitterText')}&url=https://covid19-sit.netlify.com/#/&via=dr_nekorektan`
         },
         {
           name: 'Email',

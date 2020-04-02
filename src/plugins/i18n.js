@@ -98,6 +98,9 @@ const messages = {
       views: {
         dashboardView: 'Dashboard prikaz',
         classicView: 'Klasični prikaz'
+      },
+      share: {
+        twitterText: 'Pratite koliko dugo ste u izolaciji i ostanite u toku sa vestima i događajima u vezi sa virusom Covid-19'
       }
     }
   },
@@ -194,6 +197,9 @@ const messages = {
       views: {
         dashboardView: 'Dashboard view',
         classicView: 'Classic view'
+      },
+      share: {
+        twitterText: 'Keep track of how long you have been in isolation and stay informed about the news and events concerned with Covid-19'
       }
     }
   }
