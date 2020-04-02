@@ -26,7 +26,8 @@ const messages = {
           daysMore: 'dana više',
           dayMore: 'dan više',
           lastDay: 'Poslednji dan',
-          still: 'Još '
+          still: 'Još ',
+          shareProgress: 'Podeli napredak:'
         },
         usefulInfo: {
           title: 'Korisne informacije'
@@ -100,7 +101,11 @@ const messages = {
         classicView: 'Klasični prikaz'
       },
       share: {
-        twitterText: 'Pratite koliko dugo ste u izolaciji i ostanite u toku sa vestima i događajima u vezi sa virusom Covid-19'
+        shareToTwitter: 'Share to Twitter',
+        twitterText: 'Pratite koliko dugo ste u izolaciji i ostanite u toku sa vestima i događajima u vezi sa virusom Covid-19',
+        twitterShareProgress1: 'U samoizolaciji sam već ',
+        twitterShareProgress2: ' dana. Još ',
+        twitterShareProgress3: ' dana do kraja! Pratim preostale dane na '
       }
     }
   },
@@ -125,7 +130,8 @@ const messages = {
           daysMore: 'days more',
           dayMore: 'day more',
           lastDay: 'Last day',
-          still: ''
+          still: '',
+          shareProgress: 'Share progress:'
         },
         usefulInfo: {
           title: 'Useful information'
@@ -199,7 +205,11 @@ const messages = {
         classicView: 'Classic view'
       },
       share: {
-        twitterText: 'Keep track of how long you have been in isolation and stay informed about the news and events concerned with Covid-19'
+        shareToTwitter: 'Share to Twitter',
+        twitterText: 'Keep track of how long you have been in isolation and stay informed about the news and events concerned with Covid-19',
+        twitterShareProgress1: 'I have been ',
+        twitterShareProgress2: ' days in self-isolation so far. ',
+        twitterShareProgress3: ' more days to go! Following my progress on '
       }
     }
   }

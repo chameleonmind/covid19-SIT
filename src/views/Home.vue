@@ -18,6 +18,16 @@
                     <p>{{$t('translations.home.daysProgress.elapsedTime')}}
                       <span>{{daysDifference - diffToToday > 0 ? startDayDiffToToday : endDayDiffToToday}}</span>
                     </p>
+                    <p>
+                      {{$t('translations.home.daysProgress.shareProgress')}}
+                      <a v-for="share in shareProgress"
+                         :key="share.name"
+                         :href="twitterShareLink"
+                         target="_blank"
+                         class="share-progress-link">
+                        <i :class="share.icon"></i>
+                      </a>
+                    </p>
                   </div>
                 </div>
               </basic-card>
@@ -222,7 +232,13 @@ export default {
             bottom: 10
           }
         }
-      }
+      },
+      shareProgress: [
+        {
+          name: 'Share to Twitter',
+          icon: 'icon-twitter'
+        }
+      ]
     }
   },
   mixins: [localStorageMixin, dataGetter],
@@ -306,6 +322,9 @@ export default {
     },
     recommendedMeasures () {
       return measures
+    },
+    twitterShareLink () {
+      return `https://twitter.com/intent/tweet?hashtags=Covid19&original_referer=https://covid19-sit.netlify.com/&text=${this.$t('translations.share.twitterShareProgress1') + this.diffToToday + this.$t('translations.share.twitterShareProgress2') + (this.daysDifference - this.diffToToday) + this.$t('translations.share.twitterShareProgress3')}&url=https://covid19-sit.netlify.com/#/&via=dr_nekorektan`
     }
   },
   methods: {
@@ -497,5 +516,21 @@ export default {
     padding: 3rem 0;
     text-align: center;
     color: $text-alt2;
+  }
+
+  .share-progress-link {
+    margin-left: 0.5rem;
+    padding: 0.35rem 0.5rem 0.25rem 0.5rem;
+    line-height: 1;
+    vertical-align: middle;
+    background-color: $primary;
+    color: $text-button;
+    border-radius: $full-radius;
+    border: none;
+
+    &:hover {
+      background-color: $primary-action;
+      color: $text-button;
+    }
   }
 </style>
