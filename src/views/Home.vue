@@ -1,6 +1,6 @@
 <template>
   <div class="home px-2 py-3">
-    <div :class="{'app-container': getAppearance === 'dashboard'}">
+    <div :class="{'app-container': getAppearance !== 'dashboard'}">
       <transition name="fade" mode="out-in">
         <div v-if="localData && Object.keys(localData).length && !personalInfoLoading">
           <section class="row">
@@ -38,14 +38,14 @@
                   <div class="row justify-space-between">
                     <div>
                       <basic-button :color="chartType === 'line' ? 'secondary' : 'outline'"
-                                    size="xsm"
+                                    size="small"
                                     class="px-2"
                                     @click="changeGraphType('line')"
                                     v-tooltip="$t('translations.home.stats.lineGraph')">
                         <i class="icon-trending-up"></i>
                       </basic-button>
                       <basic-button :color="chartType === 'bar' ? 'secondary' : 'outline'"
-                                    size="xsm"
+                                    size="small"
                                     class="px-2 ml-1"
                                     @click="changeGraphType('bar')"
                                     v-tooltip="$t('translations.home.stats.barChart')">
@@ -67,28 +67,28 @@
                   </transition>
                   <div class="text-center">
                     <basic-button :color="timeSpan === 60 ? 'secondary' : 'outline'"
-                                  size="xsm"
+                                  size="small"
                                   class="m-1 px-2"
                                   rounded
                                   @click="changeTimeSpan(60)">
                       {{$t('translations.home.stats.60days')}}
                     </basic-button>
                     <basic-button :color="timeSpan === 30 ? 'secondary' : 'outline'"
-                                  size="xsm"
+                                  size="small"
                                   class="m-1 px-2"
                                   rounded
                                   @click="changeTimeSpan(30)">
                       {{$t('translations.home.stats.30days')}}
                     </basic-button>
                     <basic-button :color="timeSpan === 14 ? 'secondary' : 'outline'"
-                                  size="xsm"
+                                  size="small"
                                   class="m-1 px-2"
                                   rounded
                                   @click="changeTimeSpan(14)">
                       {{$t('translations.home.stats.14days')}}
                     </basic-button>
                     <basic-button :color="timeSpan === 7 ? 'secondary' : 'outline'"
-                                  size="xsm"
+                                  size="small"
                                   class="m-1 px-2"
                                   rounded
                                   @click="changeTimeSpan(7)">
