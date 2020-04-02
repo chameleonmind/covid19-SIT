@@ -198,9 +198,18 @@ export default {
         maintainAspectRatio: true,
         scales: {
           xAxes: [{
-            display: true
+            display: true,
+            ticks: {
+              callback: (value, index, values) => {
+                if (value.indexOf('/') > -1) {
+                  const split = value.split('/')
+                  return `${split[1].length === 1 ? '0' + split[1] : split[1]}.${split[0].length === 1 ? '0' + split[0] : split[0]}.`
+                }
+              }
+            }
           }],
           yAxes: [{
+            type: 'linear',
             display: true
           }]
         },
@@ -244,7 +253,7 @@ export default {
     formatAmericanDate (value) {
       if (!value) return ''
       const splitDate = value.split('/')
-      return splitDate[1] + '.' + splitDate[0] + '.' + '2020.'
+      return `${splitDate[1].length === 1 ? '0' + splitDate[1] : splitDate[1]}.${splitDate[0].length === 1 ? '0' + splitDate[0] : splitDate[0]}.2020.`
     }
   },
   components: {
@@ -364,6 +373,9 @@ export default {
             .then(() => {
               this.chartLoading = false
               this.setChartHeight()
+              if (this.$route.query.axisType && this.$route.query.axisType === 'logarithmic') {
+                this.$set(this.chartOptions.scales.yAxes[0], 'type', 'logarithmic')
+              }
               // refresh chart
               this.$nextTick(() => {
                 if (this.$refs.lineChartRef) this.$refs.lineChartRef.refreshChart()
