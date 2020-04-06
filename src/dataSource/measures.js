@@ -8,7 +8,7 @@ const measures = {
       },
       {
         name: 'Zabrana kretanja vikendom',
-        description: 'Od 15h do 5h ujutru'
+        description: 'Od subote u 13h do ponedeljka u 5h ujutru'
       },
       {
         name: 'Zabrana kretanja starijim osobama',

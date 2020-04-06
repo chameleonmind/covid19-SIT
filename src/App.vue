@@ -18,7 +18,7 @@
         <router-view/>
       </transition>
       <footer class="app-footer">
-        v0.5.6 | Miloš Milošević, 2020.
+        v1.0.0 | <a href="https://badinsoft.com" target="_blank">Badin Soft</a>, 2020.
       </footer>
     </main>
     <notification/>

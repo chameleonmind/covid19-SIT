@@ -15,6 +15,7 @@
       <router-link id="menu-stats"
                    class="menu-item"
                    to="/stats"
+                   v-if="localData && Object.keys(localData).length"
                    v-tooltip="isMobile || !isSidebarToggled ? {} : {placement: 'right', content: $t('translations.menu.statistics')}">
         <i class="icon-trending-up"></i>
         <span class="menu-item__text">{{$t('translations.menu.statistics')}}</span>
@@ -53,15 +54,21 @@
 <script>
 import { mapGetters, mapActions } from 'vuex'
 import BasicButton from './common/basicButton'
+import localStorageMixin from '../mixins/localStorage'
 
 export default {
   name: 'appSidebar',
   data () {
     return {
-      isMobile: false
+      isMobile: false,
+      localData: {}
     }
   },
   mounted () {
+    this.getDataFromLocalStorage()
+      .then(res => {
+        this.localData = res
+      })
     this.checkIfResolutionMobile()
     window.addEventListener('resize', this.checkIfResolutionMobile)
   },
@@ -75,6 +82,7 @@ export default {
       this.isMobile = window.innerWidth < 1024
     }
   },
+  mixins: [localStorageMixin],
   watch: {
     $route: {
       handler () {

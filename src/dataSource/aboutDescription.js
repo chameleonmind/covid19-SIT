@@ -5,7 +5,7 @@ const about = {
       'Usled brzog širenja korona virusa, suočeni smo sa obavezom da se na neko vreme distanciramo od drugih ljudi.' +
       '</p>' +
       '<p>' +
-      'Svrha ove aplikacije je praćenje vremena koje provodimo u samoizolaciji i praćenje najnovijih uputstava' +
+      'Svrha ove aplikacije je praćenje vremena koje provodimo u samoizolaciji i praćenje najnovijih uputstava ' +
       'stručnjaka i vesti koje nam dolaze u vezi sa Covid-19 virusom.' +
       '</p>' +
       '<p>' +
@@ -14,7 +14,7 @@ const about = {
       '<hr>' +
       '<h2>Izvori informacija</h2>' +
       '<p>' +
-      'Sve informacije u ovoj aplikaciji su informativnog karaktera i prenesene su iz zvaničnih izvora ili sa sajtova' +
+      'Sve informacije u ovoj aplikaciji su informativnog karaktera i prenesene su iz zvaničnih izvora ili sa sajtova ' +
       'koji prenose vesti.' +
       '</p>' +
       '<ul>' +
@@ -35,14 +35,15 @@ const about = {
       '<hr>' +
       '<h2>Želite da doprinesete razvoju aplikacije?</h2>' +
       '<p>' +
-      'Posetite GitHub stranicu projekta gde možete ostaviti predloge ili eventualne ispravke koda: <a' +
-      'href="https://github.com/chameleonmind/covid19-SIT" target="_blank">Covid 19 SIT na GitHub</a>' +
+      'Posetite GitHub stranicu projekta gde možete ostaviti predloge ili eventualne ispravke koda: ' +
+      '<a href="https://github.com/chameleonmind/covid19-SIT" target="_blank">Covid 19 SIT na GitHub</a>' +
       '</p>' +
       '<p>Pošaljite mejl sa predlozima i sugestijama na <a href="mailto:covid19sit@gmail.com" target="_blank">covid19sit@gmail.com</a></p>' +
       '<hr>' +
       '<h2>O autoru</h2>' +
-      'Miloš Milošević' +
+      'Miloš Milošević on behalf of the Badin Soft' +
       '<ul>' +
+      '<li><a href="https://badinsoft.com" target="_blank">Badin Soft</a></li>' +
       '<li><a href="https://github.com/chameleonmind/" target="_blank">GitHub</a></li>' +
       '<li><a href="https://www.linkedin.com/in/milosevicm/" target="_blank">LinkedIn</a></li>' +
       '</ul>' +

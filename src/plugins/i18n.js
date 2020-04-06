@@ -79,7 +79,8 @@ const messages = {
         '14days': '14 dana',
         '28days': '28 dana',
         customEndDate: 'Odabraću iz kalendara',
-        info: 'Podaci koje ovde unosite se čuvaju samo na ovom uređaju i ne šalju se ni na jedan servis.',
+        info: 'Svrha ove aplikacije je praćenje vremena koje provodimo u samoizolaciji i praćenje najnovijih uputstava ' +
+          'stručnjaka i vesti koje nam dolaze u vezi sa Covid-19 virusom. Podaci koje ovde unosite se čuvaju samo na ovom uređaju i ne šalju se ni na jedan servis i služe isključivo Vama za praćenje vremena u izolaciji.',
         error: 'Morate popuniti sve podatke',
         languagePlaceholder: 'Odaberite jezik',
         startDateError: 'Početni datum nije izabran',
@@ -194,7 +195,8 @@ const messages = {
         '14days': '14 days',
         '28days': '28 days',
         customEndDate: 'Pick from calendar',
-        info: 'The data you enter here will be save on this device only and will not be sent to any service.',
+        info: 'The intended use of this app is to track time that we spend in self-isolation and to follow the newest instructions coming from the experts as well as news that are coming out in relation to this virus. ' +
+          'The data you enter here will be saved on this device only, will not be sent to any service and will be used only for you to track your days in isolation.',
         error: 'You must fill all fields',
         languagePlaceholder: 'Select your language',
         startDateError: 'Start date isn\'t selected',

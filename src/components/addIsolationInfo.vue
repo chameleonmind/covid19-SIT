@@ -2,6 +2,14 @@
   <div>
     <div class="row">
       <div class="col">
+        <p class="info">
+          <i class="icon-info"></i>
+          {{$t('translations.personalInfo.info')}}
+        </p>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col">
         <basic-input id="name"
                      name="name"
                      floating-label
@@ -91,13 +99,6 @@
                   :searchable="true"
                   :options="listOfCountries"
                   v-model="selectedCountry"/>
-      </div>
-    </div>
-    <div class="row">
-      <div class="col">
-        <p class="info p-2" :class="{'text-center px-3' : $props.centered}">
-          {{$t('translations.personalInfo.info')}}
-        </p>
       </div>
     </div>
     <div class="row" v-if="$props.showCountry">
@@ -273,7 +274,30 @@ export default {
 
   .info {
     color: $text-alt2;
-    font-size: 0.85rem;
-    margin: 0;
+    font-size: 1rem;
+    margin: 0 0 1rem;
+    box-shadow: inset 0 0 0 1px $border;
+    border-radius: $default-radius;
+    overflow: hidden;
+    position: relative;
+    padding: 0.5rem 0.5rem 0.5rem 3rem;
+
+    &::before {
+      position: absolute;
+      content: '';
+      left: 0;
+      top: 0;
+      height: 101%;
+      width: 2.5rem;
+      background: $success;
+    }
+
+    i {
+      position: absolute;
+      left: 0.5rem;
+      color: $text-button;
+      font-size: 1.5rem;
+      top: calc(50% - 1rem);
+    }
   }
 </style>
