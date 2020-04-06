@@ -12,7 +12,8 @@ const messages = {
         aboutPage: 'O aplikaciji',
         settingsPage: 'Podešavanja',
         collapseSidebar: 'Skupi',
-        expandSidebar: 'Proširi'
+        expandSidebar: 'Proširi',
+        statistics: 'Statistika'
       },
       home: {
         daysProgress: {
@@ -44,7 +45,8 @@ const messages = {
           '60days': '60 dana',
           '30days': '30 dana',
           '14days': '14 dana',
-          '7days': '7 dana'
+          '7days': '7 dana',
+          refresh: 'Osveži'
         },
         measures: {
           title: 'Preventivne mere zaštite od koronavirusa'
@@ -94,7 +96,8 @@ const messages = {
         newDataFetched: 'Preuzeti su najnoviji podaci',
         dataError: 'Došlo je do greške prilikom preuzimanja podataka',
         noData: 'Nema podataka za odabranu zemlju',
-        share: 'Podeli'
+        share: 'Podeli',
+        loadingInProgress: 'Učitavanje u toku...'
       },
       views: {
         dashboardView: 'Dashboard prikaz',
@@ -106,6 +109,14 @@ const messages = {
         twitterShareProgress1: 'U samoizolaciji sam već ',
         twitterShareProgress2: ' dana. Još ',
         twitterShareProgress3: ' dana do kraja! Pratim preostale dane na '
+      },
+      stats: {
+        numbersTitle: 'Podaci u brojevima',
+        date: 'Datum',
+        confirmedCases: 'Potvđeni slučajevi',
+        deathCases: 'Smrtni slučajevi',
+        recoveredCases: 'Izlečeni',
+        percentage: 'Procenat smrtnosti'
       }
     }
   },
@@ -116,7 +127,8 @@ const messages = {
         aboutPage: 'About',
         settingsPage: 'Settings',
         collapseSidebar: 'Collapse sidebar',
-        expandSidebar: 'Expand sidebar'
+        expandSidebar: 'Expand sidebar',
+        statistics: 'Statistics'
       },
       home: {
         daysProgress: {
@@ -148,7 +160,8 @@ const messages = {
           '60days': '60 days',
           '30days': '30 days',
           '14days': '14 days',
-          '7days': '7 days'
+          '7days': '7 days',
+          refresh: 'Refresh'
         },
         measures: {
           title: 'Basic protective measures against COVID-19'
@@ -198,7 +211,8 @@ const messages = {
         newDataFetched: 'New data fetched',
         dataError: 'There has been an error trying to get data',
         noData: 'There is no data for chosen country',
-        share: 'Share'
+        share: 'Share',
+        loadingInProgress: 'Loading...'
       },
       views: {
         dashboardView: 'Dashboard view',
@@ -210,6 +224,14 @@ const messages = {
         twitterShareProgress1: 'I have been ',
         twitterShareProgress2: ' days in self-isolation so far. ',
         twitterShareProgress3: ' more days to go! Following my progress on '
+      },
+      stats: {
+        numbersTitle: 'Data in numbers',
+        date: 'Date',
+        confirmedCases: 'Confirmed cases',
+        deathCases: 'Death cases',
+        recoveredCases: 'Recovered',
+        percentage: 'Mortality rate'
       }
     }
   }

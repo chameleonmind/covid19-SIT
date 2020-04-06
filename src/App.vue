@@ -18,7 +18,7 @@
         <router-view/>
       </transition>
       <footer class="app-footer">
-        v0.5.5 | Miloš Milošević, 2020.
+        v0.5.6 | Miloš Milošević, 2020.
       </footer>
     </main>
     <notification/>

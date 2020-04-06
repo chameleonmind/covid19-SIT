@@ -151,6 +151,8 @@ export default {
 
     &__content-wrapper {
       overflow-y: hidden;
+      visibility: hidden;
+      opacity: 0;
       transition: height 0.3s 0.3s cubic-bezier(1, 0, 0, 1);
 
       &.overflow-visible {
@@ -163,6 +165,8 @@ export default {
       }
 
       &.expanded {
+        visibility: visible;
+        opacity: 1;
         transition: height 0.3s cubic-bezier(1, 0, 0, 1);
 
         .expandable__content {

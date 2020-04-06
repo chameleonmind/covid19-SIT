@@ -32,11 +32,11 @@ export default {
         // console.log(e)
       }
     },
-    async getData (key, url, timeValid = 360) {
+    async getData (key, url, timeValid = 360, hardRefresh = false) {
       const storageSource = await this.getFromStorageWithTimestamp(key)
       const now = new Date()
       return new Promise((resolve, reject) => {
-        if (timeValid !== 0 && Object.keys(storageSource).length && differenceInMinutes(now.getTime(), storageSource.timestamp) < timeValid) {
+        if (timeValid !== 0 && Object.keys(storageSource).length && differenceInMinutes(now.getTime(), storageSource.timestamp) < timeValid && !hardRefresh) {
           this.$notification.show({
             text: this.$t('translations.common.noNewData'),
             type: 'info',

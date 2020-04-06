@@ -8,12 +8,13 @@
               d="M200,100 C200,44.771525 155.228475,0 100,0 C44.771525,0 0,44.771525 0,100 C0,155.228475 44.771525,200 100,200 C155.228475,200 200,155.228475 200,100 Z"></path>
           </g>
         </svg>
-        <p class="mb-0 mt-3 font-s-sm">Učitavanje u toku...</p>
+        <p class="mb-0 mt-3 font-s-sm">{{$t('translations.common.loadingInProgress')}}</p>
       </div>
       <div v-else>
         <h2 class="card-title" v-if="$props.cardTitle">{{$props.cardTitle}}
           <i :class="$props.cardIcon"
              :style="{color: $props.iconColor}"></i>
+          <slot name="button"></slot>
         </h2>
         <div class="card-body">
           <slot></slot>

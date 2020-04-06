@@ -12,6 +12,13 @@
         <i class="icon-home"></i>
         <span class="menu-item__text">{{$t('translations.menu.homePage')}}</span>
       </router-link>
+      <router-link id="menu-stats"
+                   class="menu-item"
+                   to="/stats"
+                   v-tooltip="isMobile || !isSidebarToggled ? {} : {placement: 'right', content: $t('translations.menu.statistics')}">
+        <i class="icon-trending-up"></i>
+        <span class="menu-item__text">{{$t('translations.menu.statistics')}}</span>
+      </router-link>
       <!--<router-link id="menu-news"
                    class="menu-item"
                    to="/news"

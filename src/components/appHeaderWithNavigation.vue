@@ -75,6 +75,10 @@ export default {
           url: '/'
         },
         {
+          name: this.$t('translations.menu.statistics'),
+          url: '/stats'
+        },
+        {
           name: this.$t('translations.menu.aboutPage'),
           url: '/about'
         },

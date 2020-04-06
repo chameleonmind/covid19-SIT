@@ -41,9 +41,17 @@
           <section class="row">
             <div class="graph-data">
               <basic-card :card-title="$t('translations.home.stats.title') + ' - ' + getSelectedCountry"
-                          card-icon="icon-trending-up"
                           :loading="chartLoading"
                           :loader-height="chartHeight+100+'px'">
+                <basic-button slot="button"
+                              color="primary"
+                              size="small"
+                              class="mb-1 px-3"
+                              rounded
+                              @click="getChartData(true)"
+                              :loading="chartLoading">
+                  <i class="icon-refresh-ccw"></i>
+                </basic-button>
                 <template v-if="chartData.datasets[0].data.length">
                   <div class="row justify-space-between">
                     <div>
@@ -76,13 +84,6 @@
                                :height="chartHeight" ref="barChartRef"></bar-chart>
                   </transition>
                   <div class="text-center">
-                    <basic-button :color="timeSpan === 60 ? 'secondary' : 'outline'"
-                                  size="small"
-                                  class="m-1 px-2"
-                                  rounded
-                                  @click="changeTimeSpan(60)">
-                      {{$t('translations.home.stats.60days')}}
-                    </basic-button>
                     <basic-button :color="timeSpan === 30 ? 'secondary' : 'outline'"
                                   size="small"
                                   class="m-1 px-2"
@@ -176,13 +177,14 @@ export default {
       latestDeaths: 0,
       latestRecovered: 0,
       latestUpdate: '',
-      timeSpan: 60,
+      timeSpan: 30,
       chartData: {
         labels: [],
         datasets: [
           {
             label: this.$t('translations.home.stats.confirmedCases'),
             backgroundColor: 'rgba(100,45,222, 0.75)',
+            borderColor: 'rgba(100,45,222, 1)',
             data: [],
             pointRadius: 2,
             pointHoverRadius: 8
@@ -190,6 +192,7 @@ export default {
           {
             label: this.$t('translations.home.stats.deathCases'),
             backgroundColor: 'rgba(215,80,68,0.75)',
+            borderColor: 'rgba(215,80,68,1)',
             data: [],
             pointRadius: 2,
             pointHoverRadius: 8
@@ -197,6 +200,7 @@ export default {
           {
             label: this.$t('translations.home.stats.recoveredCases'),
             backgroundColor: 'rgba(72,181,89,0.75)',
+            borderColor: 'rgba(72,181,89,1)',
             data: [],
             pointRadius: 2,
             pointHoverRadius: 8
@@ -224,7 +228,11 @@ export default {
           }]
         },
         legend: {
-          display: true
+          display: true,
+          labels: {
+            boxWidth: 12,
+            borderWidth: 1
+          }
         },
         layout: {
           padding: {
@@ -358,6 +366,7 @@ export default {
           this.latestDeaths = Object.values(data.timeline.deaths)[Object.values(data.timeline.deaths).length - 1] || 0
           this.latestRecovered = Object.values(data.timeline.recovered)[Object.values(data.timeline.recovered).length - 1] || 0
           this.latestUpdate = Object.keys(data.timeline.cases)[Object.keys(data.timeline.cases).length - 1] || '-'
+
           resolve()
         } else {
           reject(new Error(this.$t('translations.common.dataUnavailable')))
@@ -384,9 +393,9 @@ export default {
         this.chartLoading = false
       }, 300)
     },
-    getChartData () {
+    getChartData (hardRefresh = false) {
       this.chartLoading = true
-      this.getData('sitChart', `https://corona.lmao.ninja/v2/historical/${this.getSelectedCountry}`, 720)
+      this.getData('sitChart', `https://corona.lmao.ninja/v2/historical/${this.getSelectedCountry}`, 120, hardRefresh)
         .then(res => {
           this.transformDataForChart(res)
             .then(() => {

@@ -457,3 +457,91 @@ ul li {
     }
   }
 }
+
+.data-table {
+  .table-wrapper {
+    border-radius: $default-radius;
+    overflow: hidden;
+    box-shadow: $input-shadow;
+  }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    border-spacing: 0;
+    border: none;
+
+    thead tr th:first-child, td:first-child {
+      text-align: left;
+    }
+
+    tr {
+      transition: background-color 0.2s;
+      background-color: $base;
+
+      &:nth-child(odd) {
+        background-color: $input-bg;
+      }
+
+      &:hover {
+        background-color: $plain;
+      }
+    }
+
+    th:not(:first-child), td:not(:first-child) {
+      text-align: center;
+    }
+
+    th {
+      padding: 1rem 0.75rem;
+      background-color: $secondary;
+      color: $text-button;
+      cursor: default;
+    }
+
+    td {
+      padding: 0.75rem;
+      cursor: default;
+
+      &:not(:last-child) {
+        border-right: 1px solid $border;
+      }
+    }
+
+    &.vuetable th.sortable:hover {
+      color: $plain;
+    }
+  }
+
+  .pagination {
+    padding: 0.5rem;
+    margin-top: 1rem;
+    text-align: right;
+
+    .page-btn {
+      padding: 0.5rem 1rem;
+      cursor: pointer;
+      color: $primary;
+      border: none;
+      border-radius: $full-radius;
+      background: transparent;
+      transition: background-color 0.3s, color 0.3s;
+
+      &:hover {
+        border: none;
+        background: $plain;
+      }
+
+      &.active {
+        font-weight: bold;
+        color: $secondary;
+      }
+
+      &.disabled {
+        color: $secondary;
+        opacity: 0.75;
+        cursor: not-allowed;
+      }
+    }
+  }
+}

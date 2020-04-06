@@ -44,7 +44,7 @@
           <expandable :title="$t('translations.settings.changeDataTitle')"
                       :expanded="detailsExpand"
                       ref="detailsExpandRef"
-                      :overflow-visible="false"
+                      :overflow-visible="true"
                       @toggle="toggleElement('detailsExpand')">
             <div class="row">
               <add-isolation-info :centered="false" :passed-data="localData" :show-country="false"
@@ -208,6 +208,7 @@ export default {
 <style scoped lang="scss">
   .settings {
     padding: 1rem;
+    height: 100%;
 
     .container {
       width: 100%;
