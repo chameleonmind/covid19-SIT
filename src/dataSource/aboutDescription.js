@@ -41,7 +41,7 @@ const about = {
       '<p>Pošaljite mejl sa predlozima i sugestijama na <a href="mailto:covid19sit@gmail.com" target="_blank">covid19sit@gmail.com</a></p>' +
       '<hr>' +
       '<h2>O autoru</h2>' +
-      'Miloš Milošević on behalf of the Badin Soft' +
+      'Miloš Milošević u ime Badin Softa' +
       '<ul>' +
       '<li><a href="https://badinsoft.com" target="_blank">Badin Soft</a></li>' +
       '<li><a href="https://github.com/chameleonmind/" target="_blank">GitHub</a></li>' +
@@ -80,8 +80,9 @@ const about = {
       '<p>Send an email with questions or suggestions: <a href="mailto:covid19sit@gmail.com" target="_blank">covid19sit@gmail.com</a></p>' +
       '<hr>' +
       '<h2>About the author</h2>' +
-      'Miloš Milošević' +
+      'Miloš Milošević on behalf of Badin Soft' +
       '<ul>' +
+      '<li><a href="https://badinsoft.com" target="_blank">Badin Soft</a></li>' +
       '<li><a href="https://github.com/chameleonmind/" target="_blank">GitHub</a></li>' +
       '<li><a href="https://www.linkedin.com/in/milosevicm/" target="_blank">LinkedIn</a></li>' +
       '</ul>' +
