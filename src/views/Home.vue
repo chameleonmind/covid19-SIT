@@ -334,7 +334,7 @@ export default {
       return measures
     },
     twitterShareLink () {
-      return `https://twitter.com/intent/tweet?hashtags=Covid19&original_referer=https://covid19-sit.netlify.com/&text=${this.$t('translations.share.twitterShareProgress1') + this.diffToToday + this.$t('translations.share.twitterShareProgress2') + (this.daysDifference - this.diffToToday) + this.$t('translations.share.twitterShareProgress3')}&url=https://covid19-sit.netlify.com/#/&via=dr_nekorektan`
+      return `https://twitter.com/intent/tweet?hashtags=Covid19&original_referer=https://covid19-sit.badin.rs/&text=${this.$t('translations.share.twitterShareProgress1') + this.diffToToday + this.$t('translations.share.twitterShareProgress2') + (this.daysDifference - this.diffToToday) + this.$t('translations.share.twitterShareProgress3')}&url=https://covid19-sit.badin.rs/#/&via=dr_nekorektan`
     }
   },
   methods: {

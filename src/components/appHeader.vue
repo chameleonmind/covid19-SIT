@@ -39,12 +39,12 @@ export default {
         {
           name: 'Facebook',
           icon: 'icon-facebook',
-          url: 'https://www.facebook.com/sharer/sharer.php?u=https://covid19-sit.netlify.com/#/'
+          url: 'https://www.facebook.com/sharer/sharer.php?u=https://covid19-sit.badin.rs/#/'
         },
         {
           name: 'Twitter',
           icon: 'icon-twitter',
-          url: `https://twitter.com/intent/tweet?hashtags=Covid19&original_referer=https://covid19-sit.netlify.com/&text=${this.$t('translations.share.twitterText')}&url=https://covid19-sit.netlify.com/#/&via=dr_nekorektan`
+          url: `https://twitter.com/intent/tweet?hashtags=Covid19&original_referer=https://covid19-sit.badin.rs/&text=${this.$t('translations.share.twitterText')}&url=https://covid19-sit.badin.rs/#/&via=dr_nekorektan`
         },
         {
           name: 'Email',
