@@ -295,14 +295,14 @@ export default {
 
           // create table data
           this.tableData.length = 0
-          Object.keys(data.timeline.cases).slice(0 - this.timeSpan).forEach((item, idx) => {
-            const rawDate = Object.keys(data.timeline.cases).slice(0 - this.timeSpan)[idx].split('/')
+          Object.keys(data.timeline.cases).forEach((item, idx) => {
+            const rawDate = Object.keys(data.timeline.cases)[idx].split('/')
             const date = `20${rawDate[2]}-${rawDate[0].length === 1 ? '0' + rawDate[0] : rawDate[0]}-${rawDate[1].length === 1 ? '0' + rawDate[1] : rawDate[1]}`
             const rowData = {
               date: date,
-              confirmed: Object.values(data.timeline.cases).slice(0 - this.timeSpan)[idx],
-              deaths: Object.values(data.timeline.deaths).slice(0 - this.timeSpan)[idx],
-              recovered: Object.values(data.timeline.recovered).slice(0 - this.timeSpan)[idx]
+              confirmed: Object.values(data.timeline.cases)[idx],
+              deaths: Object.values(data.timeline.deaths)[idx],
+              recovered: Object.values(data.timeline.recovered)[idx]
             }
 
             this.tableData.push(rowData)

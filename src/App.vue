@@ -18,7 +18,7 @@
         <router-view/>
       </transition>
       <footer class="app-footer">
-        v1.0.1 | <a href="https://badinsoft.com" target="_blank">Badin Soft</a>, 2020.
+        v1.0.2 | <a href="https://badinsoft.com" target="_blank">Badin Soft</a>, 2020.
       </footer>
     </main>
     <notification/>
