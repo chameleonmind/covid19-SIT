@@ -463,6 +463,7 @@ ul li {
     border-radius: $default-radius;
     overflow: hidden;
     box-shadow: $input-shadow;
+    overflow-x: auto;
   }
 
   table {
