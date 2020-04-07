@@ -109,7 +109,7 @@ const messages = {
         twitterText: 'Pratite koliko dugo ste u izolaciji i ostanite u toku sa vestima i događajima u vezi sa virusom Covid-19',
         twitterShareProgress1: 'U samoizolaciji sam već ',
         twitterShareProgress2: ' dana. Još ',
-        twitterShareProgress3: ' dana do kraja! Pratim preostale dane na '
+        twitterShareProgress3: ' dana do kraja! Prati i ti svoje preostale dane na '
       },
       stats: {
         numbersTitle: 'Podaci u brojevima',
@@ -226,7 +226,7 @@ const messages = {
         twitterText: 'Keep track of how long you have been in isolation and stay informed about the news and events concerned with Covid-19',
         twitterShareProgress1: 'I have been ',
         twitterShareProgress2: ' days in self-isolation so far. ',
-        twitterShareProgress3: ' more days to go! Following my progress on '
+        twitterShareProgress3: ' more days to go! Following your own progress on '
       },
       stats: {
         numbersTitle: 'Data in numbers',
