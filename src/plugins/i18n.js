@@ -66,8 +66,8 @@ const messages = {
         },
         deleteSuccess: 'Podaci uspešno izbrisani',
         saveSuccess: 'Podaci uspešno sačuvani',
-        selectLanguage: 'Odaberite jezik',
-        chooseCountry: 'Odaberite zemlju'
+        selectLanguage: 'Odaberite jezik sajta',
+        chooseCountry: 'Odaberite zemlju za prikaz statistike'
       },
       personalInfo: {
         title: 'Podešavanja',
@@ -84,7 +84,7 @@ const messages = {
         error: 'Morate popuniti sve podatke',
         languagePlaceholder: 'Odaberite jezik',
         startDateError: 'Početni datum nije izabran',
-        countryPlaceholder: 'Odaberite zemlju'
+        countryPlaceholder: 'Odaberite zemlju za prikaz statistike'
       },
       common: {
         source: 'Izvor',
@@ -183,8 +183,8 @@ const messages = {
         },
         deleteSuccess: 'Data successfully removed',
         saveSuccess: 'Data saved successfully',
-        selectLanguage: 'Select language',
-        chooseCountry: 'Choose country'
+        selectLanguage: 'Select app language',
+        chooseCountry: 'Choose country for statistics data'
       },
       personalInfo: {
         title: 'Personal info settings',
@@ -201,7 +201,7 @@ const messages = {
         error: 'You must fill all fields',
         languagePlaceholder: 'Select your language',
         startDateError: 'Start date isn\'t selected',
-        countryPlaceholder: 'Select a country'
+        countryPlaceholder: 'Select a country for statistics data'
       },
       common: {
         source: 'Source',

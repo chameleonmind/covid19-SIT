@@ -81,6 +81,7 @@
     </transition>
     <div class="row my-3" v-if="$props.showLanguage">
       <div class="col">
+        <p class="m-0 font-bold">{{$t('translations.personalInfo.languagePlaceholder')}}</p>
         <v-select class="custom-dropdown"
                   :reduce="text => text.value"
                   label="text"
@@ -93,6 +94,7 @@
     </div>
     <div class="row my-3" v-if="$props.showCountry">
       <div class="col">
+        <p class="m-0 font-bold">{{$t('translations.personalInfo.countryPlaceholder')}}</p>
         <v-select class="custom-dropdown"
                   :placeholder="$t('translations.personalInfo.countryPlaceholder')"
                   :clearable="true"
