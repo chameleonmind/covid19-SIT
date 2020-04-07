@@ -117,7 +117,8 @@ const messages = {
         confirmedCases: 'Potvđeni slučajevi',
         deathCases: 'Smrtni slučajevi',
         recoveredCases: 'Izlečeni',
-        percentage: 'Procenat smrtnosti'
+        percentage: 'Procenat smrtnosti',
+        dataInfo: '* Podaci su preuzeti iz drugih izvora. Badin Soft ne kreira ove podatke, ne može garantovati za njihovu tačnost ili da su u pitanju najnoviji podaci.'
       }
     }
   },
@@ -233,7 +234,8 @@ const messages = {
         confirmedCases: 'Confirmed cases',
         deathCases: 'Death cases',
         recoveredCases: 'Recovered',
-        percentage: 'Mortality rate'
+        percentage: 'Mortality rate',
+        dataInfo: '* The data displayed is provided by the third party. Badin Soft does not create this data, vouch for its accuracy, or guarantee that it is the most recent data available from the data provider.'
       }
     }
   }

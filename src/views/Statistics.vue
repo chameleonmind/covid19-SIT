@@ -96,6 +96,11 @@
                 <h4 class="value">{{percentageDied}}%</h4>
               </div>
             </div>
+            <p class="mb-0 mt-1" slot="footer">
+              {{$t('translations.stats.dataInfo')}}
+              {{$t('translations.common.source')}}: <a
+              href="https://corona.lmao.ninja" target="_blank">https://corona.lmao.ninja</a>
+            </p>
           </basic-card>
         </div>
       </section>
@@ -251,7 +256,7 @@ export default {
       return this.chartData.datasets[2].data[this.chartData.datasets[2].data.length - 1] - this.chartData.datasets[2].data[this.chartData.datasets[2].data.length - 2] || 0
     },
     percentageDied () {
-      return this.confirmedDiff > 0 ? (this.deathDiff * 100 / this.confirmedDiff).toFixed(2) : 0
+      return this.latestConfirmed > 0 ? (this.latestDeaths * 100 / this.latestConfirmed).toFixed(2) : 0
     }
   },
   methods: {

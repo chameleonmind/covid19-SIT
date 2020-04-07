@@ -110,7 +110,9 @@
                 <div class="no-chart-data" v-else>
                   <h4 class="m-0">{{$t('translations.common.noData')}}</h4>
                 </div>
-                <p class="mb-0 mt-1" slot="footer">{{$t('translations.common.source')}}: <a
+                <p class="mb-0 mt-1" slot="footer">
+                  {{$t('translations.stats.dataInfo')}}
+                  {{$t('translations.common.source')}}: <a
                   href="https://corona.lmao.ninja" target="_blank">https://corona.lmao.ninja</a>
                 </p>
               </basic-card>
