@@ -15,7 +15,7 @@
                      floating-label
                      @input="clearError"
                      :label="$t('translations.personalInfo.name')"
-                     v-model="sitData.name"/>
+                     v-model.trim="sitData.name"/>
       </div>
     </div>
     <div class="row">

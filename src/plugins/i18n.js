@@ -98,7 +98,8 @@ const messages = {
         dataError: 'Došlo je do greške prilikom preuzimanja podataka',
         noData: 'Nema podataka za odabranu zemlju',
         share: 'Podeli',
-        loadingInProgress: 'Učitavanje u toku...'
+        loadingInProgress: 'Učitavanje u toku...',
+        hashtag: '#OstaniKodKuće'
       },
       views: {
         dashboardView: 'Dashboard prikaz',
@@ -215,7 +216,8 @@ const messages = {
         dataError: 'There has been an error trying to get data',
         noData: 'There is no data for chosen country',
         share: 'Share',
-        loadingInProgress: 'Loading...'
+        loadingInProgress: 'Loading...',
+        hashtag: '#stayhome'
       },
       views: {
         dashboardView: 'Dashboard view',

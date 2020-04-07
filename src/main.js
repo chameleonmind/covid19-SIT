@@ -17,8 +17,6 @@ Vue.directive('tooltip', VTooltip)
 Vue.use(NotificationPlugin)
 Vue.use(MessagePlugin)
 
-// Vue.use(Meta)
-
 Vue.config.productionTip = false
 
 new Vue({

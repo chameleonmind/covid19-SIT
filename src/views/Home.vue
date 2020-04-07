@@ -73,8 +73,8 @@
                     <div class="stats">
                       <p class="m-0">{{$t('translations.home.stats.lastChangeDate')}} <span class="date">{{latestUpdate | formatAmericanDate}}</span>
                       </p>
-                      <p class="m-0">{{$t('translations.home.stats.latestData')}} <span class="confirmed">{{latestConfirmed}}</span>/<span
-                        class="deaths">{{latestDeaths}}</span>/<span class="recovered">{{latestRecovered}}</span></p>
+                      <p class="m-0">{{$t('translations.home.stats.latestData')}} <span class="confirmed">{{latestConfirmed | convertThousands}}</span>/<span
+                        class="deaths">{{latestDeaths | convertThousands}}</span>/<span class="recovered">{{latestRecovered | convertThousands}}</span></p>
                     </div>
                   </div>
                   <transition name="fade" mode="out-in">
@@ -280,6 +280,9 @@ export default {
       if (!value) return ''
       const splitDate = value.split('/')
       return `${splitDate[1].length === 1 ? '0' + splitDate[1] : splitDate[1]}.${splitDate[0].length === 1 ? '0' + splitDate[0] : splitDate[0]}.2020.`
+    },
+    convertThousands (value) {
+      return value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')
     }
   },
   components: {

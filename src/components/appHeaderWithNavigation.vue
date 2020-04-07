@@ -2,7 +2,7 @@
   <div class="header-with-nav" :class="{'shadow' : userScrolled}">
     <div class="app-container">
       <router-link to="/" class="logo-link">
-        <h1 class="app-title">{{$shortAppName}}</h1>
+        <h1 class="app-title">{{$shortAppName}} {{$t('translations.common.hashtag')}}</h1>
       </router-link>
       <div class="desktop-menu">
         <router-link v-for="item in menuItems"

@@ -18,7 +18,7 @@
         <router-view/>
       </transition>
       <footer class="app-footer">
-        v1.0.3 | <a href="https://badinsoft.com" target="_blank">Badin Soft</a>, 2020.
+        v1.0.4 | <a href="https://badinsoft.com" target="_blank">Badin Soft</a>, 2020.
       </footer>
     </main>
     <notification/>
@@ -31,14 +31,11 @@ import AppSidebar from './components/appSidebar'
 import { mapGetters, mapActions } from 'vuex'
 import AppHeaderWithNavigation from './components/appHeaderWithNavigation'
 
-const ROOT_PATH = 'https://covid19-sit.netlify.com'
-
 export default {
   data () {
     return {
       isMobile: false,
-      isIE: false,
-      logo: ROOT_PATH + require('./assets/cover.png')
+      isIE: false
     }
   },
   mounted () {
@@ -67,54 +64,6 @@ export default {
       if (msie > 0 || !!navigator.userAgent.match(/Trident/)) { // If Internet Explorer, return version number {
         this.isIE = true
       }
-    }
-  },
-  metaInfo () {
-    return {
-      meta: [
-        // Twitter Card
-        {
-          name: 'twitter:card',
-          content: 'summary'
-        },
-        {
-          name: 'twitter:title',
-          content: 'Covid19 - Self Isolation Tracking'
-        },
-        {
-          name: 'twitter:description',
-          content: 'Keep track of how long you have been in isolation and stay informed about the news and events concerned with Covid-19'
-        },
-        {
-          name: 'twitter:image',
-          content: this.logo
-        },
-        // Facebook OpenGraph
-        {
-          property: 'og:title',
-          content: 'Covid19 - Self Isolation Tracking'
-        },
-        {
-          property: 'og:site_name',
-          content: 'Covid-19 SIT'
-        },
-        {
-          property: 'og:type',
-          content: 'website'
-        },
-        {
-          property: 'og:image',
-          content: this.logo
-        },
-        {
-          property: 'og:description',
-          content: 'Keep track of how long you have been in isolation and stay informed about the news and events concerned with Covid-19'
-        },
-        {
-          property: 'og:url',
-          content: ROOT_PATH
-        }
-      ]
     }
   }
 }

@@ -3,6 +3,7 @@
     <div class="logo">
       <img src="../assets/logo.png" alt="SIT">
       <h1 class="app-name" :class="{'visible' : !isSidebarToggled || isMobile}">{{$shortAppName}}</h1>
+      <h2 class="app-name" :class="{'visible' : !isSidebarToggled || isMobile}">{{$t('translations.common.hashtag')}}</h2>
     </div>
     <nav class="sidebar-nav">
       <router-link id="menu-home"

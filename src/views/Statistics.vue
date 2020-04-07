@@ -75,19 +75,19 @@
             <div class="stat-numbers">
               <div class="entry">
                 <h3 class="title">{{$t('translations.stats.confirmedCases')}}</h3>
-                <h4 class="value">{{latestConfirmed}}</h4>
+                <h4 class="value">{{latestConfirmed | convertThousands}}</h4>
                 <p class="difference">{{confirmedDiff > 0 ? '+ ' + confirmedDiff : confirmedDiff === 0 ? confirmedDiff :
                   '- ' + confirmedDiff}}</p>
               </div>
               <div class="entry">
                 <h3 class="title">{{$t('translations.stats.deathCases')}}</h3>
-                <h4 class="value">{{latestDeaths}}</h4>
+                <h4 class="value">{{latestDeaths | convertThousands}}</h4>
                 <p class="difference">{{deathDiff > 0 ? '+ ' + deathDiff : deathDiff === 0 ? deathDiff : '- ' +
                   deathDiff}}</p>
               </div>
               <div class="entry">
                 <h3 class="title">{{$t('translations.stats.recoveredCases')}}</h3>
-                <h4 class="value">{{latestRecovered}}</h4>
+                <h4 class="value">{{latestRecovered | convertThousands}}</h4>
                 <p class="difference">{{recoveredDiff > 0 ? '+ ' + recoveredDiff : recoveredDiff === 0 ? recoveredDiff :
                   '- ' + recoveredDiff}}</p>
               </div>
@@ -136,6 +136,9 @@ export default {
       if (!value) return ''
       const splitDate = value.split('/')
       return `${splitDate[1].length === 1 ? '0' + splitDate[1] : splitDate[1]}.${splitDate[0].length === 1 ? '0' + splitDate[0] : splitDate[0]}.2020.`
+    },
+    convertThousands (value) {
+      return value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')
     }
   },
   data () {
