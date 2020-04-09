@@ -28,14 +28,14 @@
                       @input="clearError"
                       clear-button>
             <div slot="beforeCalendarHeader" class="datepicker-header">
-              {{$t('translations.personalInfo.startPickerDescription')}}
+              <p class="m-0 font-s-sm">{{$t('translations.personalInfo.startPickerDescription')}}</p>
             </div>
           </datepicker>
           <label class="floating">{{$t('translations.personalInfo.isolationStart')}}</label>
         </div>
       </div>
     </div>
-    <div class="row">
+    <!--<div class="row">
       <div class="col mt-3" :class="{'text-center' : $props.centered}">
         <basic-button :color="duration === '13' ? 'primary' : 'outline'"
                       size="small"
@@ -59,9 +59,9 @@
           {{$t('translations.personalInfo.customEndDate')}}
         </basic-button>
       </div>
-    </div>
+    </div>-->
     <transition name="fade" mode="out-in">
-      <div class="row" v-if="duration === 'custom' || sitData.endDate">
+      <div class="row">
         <div class="col mt-3">
           <div class="relative">
             <datepicker class="custom-datepicker"
@@ -71,7 +71,19 @@
                         @input="clearError"
                         clear-button>
               <div slot="beforeCalendarHeader" class="datepicker-header">
-                {{$t('translations.personalInfo.endPickerDescription')}}
+                <p class="m-0 font-s-sm">{{$t('translations.personalInfo.endPickerDescription')}}</p>
+                <basic-button color="outline"
+                              class="m-1"
+                              :disabled="!sitData.startDate"
+                              @click="setDuration('13')">
+                  {{$t('translations.personalInfo.14days')}}
+                </basic-button>
+                <basic-button color="outline"
+                              class="m-1"
+                              :disabled="!sitData.startDate"
+                              @click="setDuration('27')">
+                  {{$t('translations.personalInfo.28days')}}
+                </basic-button>
               </div>
             </datepicker>
             <label class="floating">{{$t('translations.personalInfo.isolationEnd')}}</label>

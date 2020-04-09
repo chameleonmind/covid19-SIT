@@ -451,6 +451,9 @@ ul li {
   input[type=radio] {
     width: 0;
     height: 0;
+    appearance: none;
+    position: absolute;
+    z-index: -1;
 
     &:checked ~ .check {
       background: $primary;
