@@ -16,7 +16,7 @@
                     </p>
                     <p>{{$t('translations.home.daysProgress.end')}} <span>{{localData.endDate | formatDate}}</span></p>
                     <p>{{$t('translations.home.daysProgress.elapsedTime')}}
-                      <span>{{daysDifference - diffToToday > 0 ? startDayDiffToToday : endDayDiffToToday}}</span>
+                      <span>{{startDayDiffToToday}}</span>
                     </p>
                     <p>
                       {{$t('translations.home.daysProgress.shareProgress')}}
@@ -74,7 +74,8 @@
                       <p class="m-0">{{$t('translations.home.stats.lastChangeDate')}} <span class="date">{{latestUpdate | formatAmericanDate}}</span>
                       </p>
                       <p class="m-0">{{$t('translations.home.stats.latestData')}} <span class="confirmed">{{latestConfirmed | convertThousands}}</span>/<span
-                        class="deaths">{{latestDeaths | convertThousands}}</span>/<span class="recovered">{{latestRecovered | convertThousands}}</span></p>
+                        class="deaths">{{latestDeaths | convertThousands}}</span>/<span class="recovered">{{latestRecovered | convertThousands}}</span>
+                      </p>
                     </div>
                   </div>
                   <transition name="fade" mode="out-in">
@@ -337,7 +338,7 @@ export default {
       return measures
     },
     twitterShareLink () {
-      return `https://twitter.com/intent/tweet?hashtags=Covid19&original_referer=https://covid19-sit.badin.rs/&text=${this.$t('translations.share.twitterShareProgress1') + this.diffToToday + this.$t('translations.share.twitterShareProgress2') + (this.daysDifference - this.diffToToday) + this.$t('translations.share.twitterShareProgress3')}&url=https://covid19-sit.badin.rs/#/&via=dr_nekorektan`
+      return `https://twitter.com/intent/tweet?hashtags=Covid19&original_referer=https://covid19-sit.badin.rs/&text=${this.$t('translations.share.twitterShareProgress1') + this.diffToToday + this.$t('translations.share.twitterShareProgress2') + (this.daysDifference - this.diffToToday > 0 ? this.$t('translations.share.twitterShareProgress3') + (this.daysDifference - this.diffToToday) + this.$t('translations.share.twitterShareProgress4') : '') + this.$t('translations.share.twitterShareProgress5')}&url=https://covid19-sit.badin.rs/#/&via=dr_nekorektan`
     }
   },
   methods: {

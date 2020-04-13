@@ -25,6 +25,7 @@
                       :class="{'active' : sitData.startDate}"
                       v-model="sitData.startDate"
                       :disabled-dates="calendarDisabledDatesStart"
+                      ref="startDateRef"
                       @input="clearError"
                       clear-button>
             <div slot="beforeCalendarHeader" class="datepicker-header">
@@ -68,6 +69,7 @@
                         :class="{'active' : sitData.endDate}"
                         v-model="sitData.endDate"
                         :disabled-dates="calendarDisabledDatesEnd"
+                        ref="endDateRef"
                         @input="clearError"
                         clear-button>
               <div slot="beforeCalendarHeader" class="datepicker-header">
@@ -264,6 +266,8 @@ export default {
           duration: 3000
         })
       }
+      this.$refs.startDateRef.close()
+      this.$refs.endDateRef.close()
     },
     setAppearance (value) {
       this.selectedAppearance = value
